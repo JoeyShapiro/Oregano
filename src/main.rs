@@ -1,4 +1,4 @@
-use std::time::Duration;
+use std::time::{Duration, SystemTime};
 use std::thread;
 use std::sync::mpsc;
 
@@ -26,6 +26,7 @@ fn convert_argument(input: &str) -> u16 {
 }
 
 fn main() {
+    // TOPDO is length encoded faster. how would it work in python and stuff. test it now
     for device in rusb::devices().unwrap().iter() {
         let device_desc = device.device_descriptor().unwrap();
 
@@ -207,7 +208,7 @@ fn read_endpoint<T: UsbContext>(
                     TransferType::Bulk => match handle.read_bulk(endpoint.address, &mut buf, timeout) {
                         Ok(len) => {
                             println!(" - read: {:?}", &buf[..len]);
-                            let message = Message::new(buf);
+                            let message = Message::new(buf, SystemTime::now());
                             println!("{}", message);
                         }
                         Err(err) => println!("could not read from endpoint: {}", err),
