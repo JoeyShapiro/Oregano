@@ -49,6 +49,8 @@ impl MidiFile {
         let test = buffer[22..track.length as usize].to_vec();
         println!("{:?}", track.length);
 
+        // i need a classic for loop to loop over it
+
         let mut data: Vec<u8> = Vec::new();
         // code - 2B
         // length - 1B
@@ -74,20 +76,34 @@ impl MidiFile {
                 println!("raw ({}): {:?}", data.len(), data);
 
                 let code: u16 = as_u16_be(data[0..2].try_into().expect("length failed"));
-                let length: u8 = data[2];
-                let offset: usize = 2+length as usize;
 
-                print!("\tformated: code: {:X?}; length: {}; data: ", code, length,);
-                match code {
-                    0xFF08 => println!("{:?}", std::str::from_utf8(&data[3..offset])),
-                    0xFF09 => println!("{:?}", std::str::from_utf8(&data[3..offset])),
-                    0xFF0C => println!("{:?}", std::str::from_utf8(&data[3..offset])),
-                    0xFF58 => println!("{}/{}; clocks per metronome tick: {}; 32nd notes per quater note: {}", data[3], 2_u8.pow(data[4] as u32), data[5], data[6]),
-                    0xFF59 => println!("{} {}; key: {}", (data[3] as i8).abs(), 
-                        if (data[3] as i8) < 0 {"flats"} else {"sharps"}, 
-                        if data[4] == 0 {"major key"} else {"minor key"}),
-                    0xFF51 => println!("{} ms/quarter-note", as_u24_be(data[3..6].try_into().expect("length failed"))),
-                    _ => break,
+                print!("\tformated: code: {:X?}; data: ", code);
+                match code&0b1111_1111_0000_0000 {
+                    0xFF00 => {
+                        let length: u8 = data[2];
+                        let offset: usize = 2+length as usize;
+
+                        print!("length: {}; ", length);
+                        match code&0b0000_0000_1111_1111 {
+                            0x0008 => println!("{:?}", std::str::from_utf8(&data[3..offset])),
+                            0x0009 => println!("{:?}", std::str::from_utf8(&data[3..offset])),
+                            0x000C => println!("{:?}", std::str::from_utf8(&data[3..offset])),
+                            0x0058 => println!("{}/{}; clocks per metronome tick: {}; 32nd notes per quater note: {}", data[3], 2_u8.pow(data[4] as u32), data[5], data[6]),
+                            0x0059 => println!("{} {}; key: {}", (data[3] as i8).abs(), 
+                                if (data[3] as i8) < 0 {"flats"} else {"sharps"}, 
+                                if data[4] == 0 {"major key"} else {"minor key"}),
+                            0x0051 => println!("{} ms/quarter-note", as_u24_be(data[3..6].try_into().expect("length failed"))),
+                            _ => {
+                                println!("unknown {:X?}", code&0b0000_0000_1111_1111);
+                                break;
+                            }
+                        }
+                    },
+                    0xC000 => println!("channel: {}; controller: {}; value: {}", data[0]&0x0F, data[1], data[2]),
+                    _ => {
+                        println!("unknown {:X?}", code&0b1111_1111_0000_0000);
+                        break;
+                    },
                 };
 
                 data.clear();
