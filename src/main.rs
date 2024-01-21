@@ -4,6 +4,8 @@ use std::sync::mpsc;
 
 mod message;
 use message::Message;
+mod midi_file;
+use midi_file::MidiFile;
 
 use rusb::{
     Context, Device, DeviceDescriptor, DeviceHandle, Direction, Result, TransferType, UsbContext,
@@ -26,6 +28,7 @@ fn convert_argument(input: &str) -> u16 {
 }
 
 fn main() {
+    MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned());
     // TOPDO is length encoded faster. how would it work in python and stuff. test it now
     for device in rusb::devices().unwrap().iter() {
         let device_desc = device.device_descriptor().unwrap();
