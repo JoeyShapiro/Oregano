@@ -233,48 +233,6 @@ impl MidiFile {
             }
         }
 
-        let mut data: Vec<u8> = Vec::new();
-        // code - 2B
-        // length - 1B
-        // stuff - length B
-        // FF is meta
-        // 00 is escape
-        // TODO thats what they mean by var length
-        // some are only a few bytes, depending on what the status code needs
-        // let mut length = 0_u8;
-        // for b in test {
-        //     if data.len() == 0 && b == 0x00 {
-        //         continue;
-        //     } else if data.len() == 1 {
-        //         data.push(b);
-        //     } else if data.len() == 2 {
-        //         data.push(b);
-        //         length = b;
-        //     } else {
-        //         data.push(b);
-        //     }
-
-        //     if data.len() == (length+3).into() {
-        //         println!("raw ({}): {:?}", data.len(), data);
-
-        //         let code: u16 = as_u16_be(data[0..2].try_into().expect("length failed"));
-
-        //         print!("\tformated: code: {:X?}; data: ", code);
-        //         match code&0b1111_1111_0000_0000 {
-        //             0xFF00 => {
-                        
-        //             },
-        //             0xC000 => println!("channel: {}; controller: {}; value: {}", data[0]&0x0F, data[1], data[2]),
-        //             _ => {
-        //                 println!("unknown {:X?}", code&0b1111_1111_0000_0000);
-        //                 break;
-        //             },
-        //         };
-
-        //         data.clear();
-        //     }
-        // }
-
         Self { filename: "".to_owned() }
     }
 }
