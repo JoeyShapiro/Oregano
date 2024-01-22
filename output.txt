@@ -227,3 +227,29 @@ could not read from endpoint: Operation timed out
 could not read from endpoint: Operation timed out
 could not read from endpoint: Operation timed out
 ^C
+
+M T r k
+6 1 2 480
+3636
+raw (13): [255, 8, 10, 66, 97, 100, 32, 65, 112, 112, 108, 101, 0]
+        formated: code: FF08; data: length: 10; Ok("Bad Apple")
+raw (12): [255, 9, 9, 84, 111, 117, 104, 111, 117, 32, 52, 0]
+        formated: code: FF09; data: length: 9; Ok("Touhou 4")
+raw (6): [255, 12, 3, 49, 52, 0]
+        formated: code: FF0C; data: length: 3; Ok("14")
+raw (7): [255, 88, 4, 2, 1, 24, 8]
+        formated: code: FF58; data: length: 4; 2/2; clocks per metronome tick: 24; 32nd notes per quater note: 8
+raw (5): [255, 89, 2, 250, 0]
+        formated: code: FF59; data: length: 2; 6 flats; key: major key
+raw (6): [255, 81, 3, 7, 161, 32]
+        formated: code: FF51; data: length: 3; 500000 ms/quarter-note
+raw (5): [192, 0, 2, 176, 7]
+        formated: code: C000; data: channel: 0; controller: 0; value: 2
+raw (13): [99, 2, 10, 64, 2, 91, 30, 2, 93, 30, 150, 56, 144]
+        formated: code: 6302; data: unknown 6300
+
+115
+599
+2191
+2858
+at some point i will get to a new trak

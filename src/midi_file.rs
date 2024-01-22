@@ -1,4 +1,6 @@
 use std::io::Read;
+use std::thread::sleep;
+use std::time::SystemTime;
 
 use crate::message::Message;
 
@@ -45,11 +47,191 @@ impl MidiFile {
             events: Vec::new(),
         };
         
-        println!("{:?} {} {} {}", header.length, header.format, header.tracks, header.division);
-        let test = buffer[22..track.length as usize].to_vec();
+        println!("{:?} {} {}; ticks per quater note: {} ({:x?})", header.length, header.format, header.tracks, header.division, header.division);
+        let data = buffer[22..track.length as usize].to_vec();
         println!("{:?}", track.length);
 
-        // i need a classic for loop to loop over it
+        // loops over each event
+        let mut i = 0; // want this in a for, but i will barely use the i++
+        while i < data.len() {
+            let delta_time = data[i];
+            i+=1;
+            println!("i: {}; delta: {}; code: {}", i, delta_time, data[i]);
+            // how long is a beat
+            // sleep(delta_time);
+
+            match data[i]&0b1111_0000 {
+                0xF0 => {
+                    let code = as_u16_be(data[i..i+2].try_into().expect("length failed"));
+                    i+=2;
+
+                    print!("\tformated: code: {:X?}; data: ", code);
+                    match code&0b0000_0000_1111_1111 {
+                        0x0008 | 0x0009 | 0x000C => {
+                            let length: usize = data[i] as usize;
+                            i+=length+1;
+
+                            print!("length: {}; ", length);
+                            println!("{:?}", std::str::from_utf8(&data[i-length..i]));
+                        }
+                        0x0058 => {
+                            let length: usize = data[i] as usize;
+                            i+=1;
+                            println!("{}/{}; clocks per metronome tick: {}; 32nd notes per quater note: {}", data[i], 2_u8.pow(data[i+1] as u32), data[i+2], data[i+3]);
+                            i+=4;
+                        },
+                        0x0059 => {
+                            let length: usize = data[i] as usize;
+                            i+=1;
+                            println!("{} {}; key: {}", (data[i] as i8).abs(), 
+                            if (data[i] as i8) < 0 {"flats"} else {"sharps"}, 
+                            if data[i+1] == 0 {"major key"} else {"minor key"});
+                            i+=2;
+                        }
+                        0x0051 => {
+                            let length: usize = data[i] as usize;
+                            i+=1;
+                            println!("{} μs/quarter-note", as_u24_be(data[i..i+3].try_into().expect("length failed")));
+                            i+=3;
+                        }
+                        _ => {
+                            println!("unknown {:X?}", code&0b0000_0000_1111_1111);
+                            break;
+                        }
+                    }
+                }
+                0xC0 => {
+                    println!("channel: {}; controller: {}; value: {}", data[i]&0x0F, data[i+1], data[i+2]);
+                    i+=3;
+                    // break;
+                }
+                0x80 => {
+                    println!("{}", Message::from_midi(data[i], data[i+1], data[i+2]));
+                    i+=3;
+                }
+                0x90 => {
+                    println!("{}", Message::from_midi(data[i], data[i+1], data[i+2]));
+                    i+=3;
+                }
+                0x70 => {
+                    match data[i]&0b0000_1111 {
+                        0x01|0x02|0x03|0x04|0x05|0x06|0x07 => {
+                            i+=1;
+                            println!("undefined: {}", data[i]);
+                            i+=1;
+                        }
+                        0x09 => {
+                            i+=1;
+                            println!("Reset All Controllers: {}", data[i]);
+                            i+=1;
+                        }
+                        _ => {
+                            println!("unknown {:X?}", data[i]);
+                            break;
+                        }
+                    }
+                }
+                0x60 => {
+                    match data[i]&0b0000_1111 {
+                        0x06|0x07|0x08|0x09|0x0A|0x0B|0x0C|0x0D|0x0E|0x0F => {
+                            i+=1;
+                            println!("undefined: {}", data[i]);
+                            i+=1;
+                        }
+                        _ => {
+                            println!("unknown {:X?}", data[i]);
+                            break;
+                        }
+                    }
+                }
+                0x50 => {
+                    match data[i]&0b0000_1111 {
+                        0x00 => {
+                            i+=1;
+                            println!("General Purpose Controller #5: {}", data[i]);
+                            i+=1;
+                        }
+                        0x0B => {
+                            i+=1;
+                            println!("effects 1 depth: {}", data[i]);
+                            i+=1;
+                        }
+                        0x0D => {
+                            i+=1;
+                            println!("effects 3 depth: {}", data[i]);
+                            i+=1;
+                        }
+                        _ => {
+                            println!("unknown {:X?}", data[i]);
+                            break;
+                        }
+                    }
+                }
+                0x40 => {
+                    match data[i]&0b0000_1111 {
+                        0x02 => {
+                            i+=1;
+                            println!("Sustenuto: {}", if data[i] < 63 {"off"} else {"on"});
+                            i+=1;
+                        }
+                        0x04 => {
+                            i+=1;
+                            println!("Legato Footswitch: {}", if data[i] < 63 {"off"} else {"on"});
+                            i+=1;
+                        }
+                        _ => {
+                            println!("unknown {:X?}", data[i]);
+                            break;
+                        }
+                    }
+                }
+                0x30 => {
+                    match data[i]&0b0000_1111 {
+                        0x04|0x05|0x06|0x07|0x08|0x09|0x0A|0x0B|0x0C|0x0D|0x0E|0x0F => {
+                            i+=1;
+                            println!("undefined: {}", data[i]);
+                            i+=1;
+                        }
+                        _ => {
+                            println!("unknown {:X?}", data[i]);
+                            break;
+                        }
+                    }
+                }
+                0x00 => {
+                    match data[i]&0b0000_1111 {
+                        0x07 => {
+                            i+=1;
+                            println!("channel volume: {}", data[i]);
+                            i+=1;
+                        }
+                        0x0A => {
+                            i+=1;
+                            println!("pan: {}", data[i]);
+                            i+=1;
+                        }
+                        0x01 => {
+                            i+=1;
+                            println!("Modulation wheel: {}", data[i]);
+                            i+=1;
+                        }
+                        0x00 => {
+                            i+=1;
+                            println!("Bank Select: {}", data[i]);
+                            i+=1;
+                        }
+                        _ => {
+                            println!("unknown {:X?}", data[i]);
+                            break;
+                        }
+                    }
+                }
+                _ => {
+                    println!("unknown {:X?}", data[i]);
+                    break;
+                }
+            }
+        }
 
         let mut data: Vec<u8> = Vec::new();
         // code - 2B
@@ -59,56 +241,39 @@ impl MidiFile {
         // 00 is escape
         // TODO thats what they mean by var length
         // some are only a few bytes, depending on what the status code needs
-        let mut length = 0_u8;
-        for b in test {
-            if data.len() == 0 && b == 0x00 {
-                continue;
-            } else if data.len() == 1 {
-                data.push(b);
-            } else if data.len() == 2 {
-                data.push(b);
-                length = b;
-            } else {
-                data.push(b);
-            }
+        // let mut length = 0_u8;
+        // for b in test {
+        //     if data.len() == 0 && b == 0x00 {
+        //         continue;
+        //     } else if data.len() == 1 {
+        //         data.push(b);
+        //     } else if data.len() == 2 {
+        //         data.push(b);
+        //         length = b;
+        //     } else {
+        //         data.push(b);
+        //     }
 
-            if data.len() == (length+3).into() {
-                println!("raw ({}): {:?}", data.len(), data);
+        //     if data.len() == (length+3).into() {
+        //         println!("raw ({}): {:?}", data.len(), data);
 
-                let code: u16 = as_u16_be(data[0..2].try_into().expect("length failed"));
+        //         let code: u16 = as_u16_be(data[0..2].try_into().expect("length failed"));
 
-                print!("\tformated: code: {:X?}; data: ", code);
-                match code&0b1111_1111_0000_0000 {
-                    0xFF00 => {
-                        let length: u8 = data[2];
-                        let offset: usize = 2+length as usize;
+        //         print!("\tformated: code: {:X?}; data: ", code);
+        //         match code&0b1111_1111_0000_0000 {
+        //             0xFF00 => {
+                        
+        //             },
+        //             0xC000 => println!("channel: {}; controller: {}; value: {}", data[0]&0x0F, data[1], data[2]),
+        //             _ => {
+        //                 println!("unknown {:X?}", code&0b1111_1111_0000_0000);
+        //                 break;
+        //             },
+        //         };
 
-                        print!("length: {}; ", length);
-                        match code&0b0000_0000_1111_1111 {
-                            0x0008 => println!("{:?}", std::str::from_utf8(&data[3..offset])),
-                            0x0009 => println!("{:?}", std::str::from_utf8(&data[3..offset])),
-                            0x000C => println!("{:?}", std::str::from_utf8(&data[3..offset])),
-                            0x0058 => println!("{}/{}; clocks per metronome tick: {}; 32nd notes per quater note: {}", data[3], 2_u8.pow(data[4] as u32), data[5], data[6]),
-                            0x0059 => println!("{} {}; key: {}", (data[3] as i8).abs(), 
-                                if (data[3] as i8) < 0 {"flats"} else {"sharps"}, 
-                                if data[4] == 0 {"major key"} else {"minor key"}),
-                            0x0051 => println!("{} ms/quarter-note", as_u24_be(data[3..6].try_into().expect("length failed"))),
-                            _ => {
-                                println!("unknown {:X?}", code&0b0000_0000_1111_1111);
-                                break;
-                            }
-                        }
-                    },
-                    0xC000 => println!("channel: {}; controller: {}; value: {}", data[0]&0x0F, data[1], data[2]),
-                    _ => {
-                        println!("unknown {:X?}", code&0b1111_1111_0000_0000);
-                        break;
-                    },
-                };
-
-                data.clear();
-            }
-        }
+        //         data.clear();
+        //     }
+        // }
 
         Self { filename: "".to_owned() }
     }

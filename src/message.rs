@@ -177,6 +177,16 @@ impl Message {
 
         Message { shrug: data[0], status, channel: data[1]&0b00001111, note: data[2], velocity: data[3], pressed_at, raw: data, }
     }
+
+    pub fn from_midi(status_channel: u8, note_number: u8, velocity: u8) -> Self {
+        let status = match status_channel&0b11110000 {
+            144 => Status::NoteOn,
+            128 => Status::NoteOff,
+            _ => Status::Unknown,
+        };
+
+        Message { shrug: 0, status, channel: status_channel&0b00001111, note: note_number, velocity, pressed_at: SystemTime::now(), raw: [0; 256], }
+    }
 }
 
 // Implement methods for Message (optional)
