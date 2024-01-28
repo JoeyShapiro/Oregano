@@ -28,7 +28,26 @@ fn convert_argument(input: &str) -> u16 {
 }
 
 fn main() {
-    MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned());
+    // let sevend: [u8; 4] = [0xFF, 0xFF, 0xFF, 0x7F];
+    let sevend: [u8; 2] = [ 0xFF, 0x7F ];
+    println!("{:X?}", 0b0111_1111+0b0111_1111);
+    println!("{:X?}", 0b111_1111_111_1111);
+    // i need to concat
+    // and i need the 0s
+    
+    let mut i = 0;
+    let mut out = (sevend[i]&0b0111_1111) as u64;
+    println!("\t{:X?} {}", sevend[i], sevend[i]);
+    while sevend[i]&0b1000_0000 != 0 {
+        i+=1;
+        println!("\t{:X?} {}", sevend[i], sevend[i]);
+        // we must ignore first bit
+        out = out << 7 | (sevend[i]&0b0111_1111) as u64;
+    }
+    println!("out: {} ({:X?})", out, out);
+    // MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned());
+    // MidiFile::new("Nintendo_Wii_Theme_for_Bb_Clarinet.mid".to_owned());
+    MidiFile::new("Simple_MIDI.mid".to_owned());
     // TOPDO is length encoded faster. how would it work in python and stuff. test it now
     for device in rusb::devices().unwrap().iter() {
         let device_desc = device.device_descriptor().unwrap();
