@@ -9,331 +9,374 @@ M T r k
 [0, FF, 3, 5, 50, 69, 61, 6E, 6F, 0, FF, 58, 4, 4, 2, 18, 8, 0, FF, 59, 2, 0, 0, 0, FF, 51, 3, 7, A1, 20, 0, B0, 79, 0, 0, 64, 0, 0, 65, 0, 0, 6, C, 0, 64, 7F, 0, 65, 7F, 0, C0, 0, 0, B0, 7, 64, 0, A, 40, 0, 5B, 0, 0, 5D, 0, 0, FF, 21, 1, 0, 87, 40, 90, 44, 50, 81, 1F, 44, 0, 1, 42, 50, 81, 1F, 42, 0, 1, 44, 50, 81, 1F, 44, 0, 1, 42, 50, 81, 1F, 42, 0, 1, 3F, 50, 81, 1F, 3F, 0, 1, 42, 50, 81, 1F, 42, 0, 1, 3F, 50, 81, 6F, 3F, 0, 1, 41, 50, 81, 6F, 41, 0, 1, 42, 50, 81, 6F, 42, 0, 1, 44, 50, 81, 6F, 44, 0, 1, 46, 50, 83, 5F, 46, 0, 1, 4B, 50, 81, 6F, 4B, 0, 1, 49, 50, 81, 6F, 49, 0, 1, FF, 2F, 0]
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 1; delta: 0
 i: 1; delta: 0; code: 0xFF
 code_channel: 0xFF
 	formated: code: 0xFF03; data: length: 5; Ok("Piano")
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 10; delta: 0
 i: 10; delta: 0; code: 0xFF
 code_channel: 0xFF
 	formated: code: 0xFF58; data: 4/4; clocks per metronome tick: 24; 32nd notes per quater note: 8
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 18; delta: 0
 i: 18; delta: 0; code: 0xFF
 code_channel: 0xFF
 	formated: code: 0xFF59; data: 0 sharps; key: major key
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 24; delta: 0
 i: 24; delta: 0; code: 0xFF
 code_channel: 0xFF
 	formated: code: 0xFF51; data: 500000 μs/quarter-note
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 31; delta: 0
 i: 31; delta: 0; code: 0xB0
 code_channel: 0xB0
 Control Change: channel: 0; controller: 121; value: 0
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 35; delta: 0
 i: 35; delta: 0; code: 0x64
 code_channel: 0x64
 Registered Parameter Number LSB: 0
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 37; delta: 0
 i: 37; delta: 0; code: 0x0
 code_channel: 0x0
 Bank Select: 101
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 40; delta: 0
 i: 40; delta: 0; code: 0x0
 code_channel: 0x0
 Bank Select: 6
 
 	data: C; 12; hex: 0xC
+	current_time: 12
 i: 43; delta: 12
 i: 43; delta: 12; code: 0x0
 code_channel: 0x0
 Bank Select: 100
 
 	data: 7F; 127; hex: 0x7F
+	current_time: 144
 i: 46; delta: 127
 i: 46; delta: 127; code: 0x0
 code_channel: 0x0
 Bank Select: 101
 
 	data: 7F; 127; hex: 0x7F
+	current_time: 276
 i: 49; delta: 127
 i: 49; delta: 127; code: 0x0
 code_channel: 0x0
 Bank Select: 192
 
 	data: 0; 0; hex: 0x0
+	current_time: 276
 i: 52; delta: 0
 i: 52; delta: 0; code: 0x0
 code_channel: 0x0
 Bank Select: 176
 
 	data: 7; 7; hex: 0x7
+	current_time: 283
 i: 55; delta: 7
 i: 55; delta: 7; code: 0x64
 code_channel: 0x64
 Registered Parameter Number LSB: 0
 
 	data: 0; 0; hex: 0x0
+	current_time: 283
 i: 57; delta: 0
 i: 57; delta: 0; code: 0xA
 code_channel: 0xA
 pan: 64
 
 	data: 0; 0; hex: 0x0
+	current_time: 283
 i: 60; delta: 0
 i: 60; delta: 0; code: 0x5B
 code_channel: 0x5B
 effects 1 depth: 0
 
 	data: 0; 0; hex: 0x0
+	current_time: 283
 i: 63; delta: 0
 i: 63; delta: 0; code: 0x5D
 code_channel: 0x5D
 effects 3 depth: 0
 
 	data: 0; 0; hex: 0x0
+	current_time: 283
 i: 66; delta: 0
 i: 66; delta: 0; code: 0xFF
 code_channel: 0xFF
 	formated: code: 0xFF21; data: shrug 0 87 40 90
-shrug 87
 
 	data: 87; 7; hex: 0x7
 	40 64
+	current_time: 1282
 i: 72; delta: 960
 i: 72; delta: 960; code: 0x90
 code_channel: 0x90
 data: i: 0x90; i+1: 0x44; i+2: 0x50
 code channe: 0x90; number: 0x44; velocity: 0x50
-status: NoteOn; channel: 0; note: G#4/Ab4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128718000 }
+status: NoteOn; channel: 0; note: G#4/Ab4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 260938000 }; play_at: 1.282s
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 1447
 i: 77; delta: 159
 i: 77; delta: 159; code: 0x44
 code_channel: 0x90
 data: i: 0x44; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x44; velocity: 0x0
-status: NoteOff; channel: 0; note: G#4/Ab4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128758000 }
+status: NoteOff; channel: 0; note: G#4/Ab4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 260969000 }; play_at: 1.447s
 
 	data: 1; 1; hex: 0x1
+	current_time: 1448
 i: 80; delta: 1
 i: 80; delta: 1; code: 0x42
 code_channel: 0x80
 data: i: 0x42; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x42; velocity: 0x50
-status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128772000 }
+status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 260984000 }; play_at: 1.448s
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 1613
 i: 84; delta: 159
 i: 84; delta: 159; code: 0x42
 code_channel: 0x90
 data: i: 0x42; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x42; velocity: 0x0
-status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128787000 }
+status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261009000 }; play_at: 1.613s
 
 	data: 1; 1; hex: 0x1
+	current_time: 1614
 i: 87; delta: 1
 i: 87; delta: 1; code: 0x44
 code_channel: 0x80
 data: i: 0x44; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x44; velocity: 0x50
-status: NoteOn; channel: 0; note: G#4/Ab4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128805000 }
+status: NoteOn; channel: 0; note: G#4/Ab4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261023000 }; play_at: 1.614s
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 1779
 i: 91; delta: 159
 i: 91; delta: 159; code: 0x44
 code_channel: 0x90
 data: i: 0x44; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x44; velocity: 0x0
-status: NoteOff; channel: 0; note: G#4/Ab4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128820000 }
+status: NoteOff; channel: 0; note: G#4/Ab4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261039000 }; play_at: 1.779s
 
 	data: 1; 1; hex: 0x1
+	current_time: 1780
 i: 94; delta: 1
 i: 94; delta: 1; code: 0x42
 code_channel: 0x80
 data: i: 0x42; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x42; velocity: 0x50
-status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128833000 }
+status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261053000 }; play_at: 1.78s
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 1945
 i: 98; delta: 159
 i: 98; delta: 159; code: 0x42
 code_channel: 0x90
 data: i: 0x42; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x42; velocity: 0x0
-status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128847000 }
+status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261069000 }; play_at: 1.945s
 
 	data: 1; 1; hex: 0x1
+	current_time: 1946
 i: 101; delta: 1
 i: 101; delta: 1; code: 0x3F
 code_channel: 0x80
 data: i: 0x3F; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x3F; velocity: 0x50
-status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128860000 }
+status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261083000 }; play_at: 1.946s
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 2111
 i: 105; delta: 159
 i: 105; delta: 159; code: 0x3F
 code_channel: 0x90
 data: i: 0x3F; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x3F; velocity: 0x0
-status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128874000 }
+status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261099000 }; play_at: 2.111s
 
 	data: 1; 1; hex: 0x1
+	current_time: 2112
 i: 108; delta: 1
 i: 108; delta: 1; code: 0x42
 code_channel: 0x80
 data: i: 0x42; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x42; velocity: 0x50
-status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128887000 }
+status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261114000 }; play_at: 2.112s
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 2277
 i: 112; delta: 159
 i: 112; delta: 159; code: 0x42
 code_channel: 0x90
 data: i: 0x42; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x42; velocity: 0x0
-status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128901000 }
+status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261135000 }; play_at: 2.277s
 
 	data: 1; 1; hex: 0x1
+	current_time: 2278
 i: 115; delta: 1
 i: 115; delta: 1; code: 0x3F
 code_channel: 0x80
 data: i: 0x3F; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x3F; velocity: 0x50
-status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128914000 }
+status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261149000 }; play_at: 2.278s
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 2526
 i: 119; delta: 239
 i: 119; delta: 239; code: 0x3F
 code_channel: 0x90
 data: i: 0x3F; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x3F; velocity: 0x0
-status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128928000 }
+status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261164000 }; play_at: 2.526s
 
 	data: 1; 1; hex: 0x1
+	current_time: 2527
 i: 122; delta: 1
 i: 122; delta: 1; code: 0x41
 code_channel: 0x80
 data: i: 0x41; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x41; velocity: 0x50
-status: NoteOn; channel: 0; note: F4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128941000 }
+status: NoteOn; channel: 0; note: F4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261179000 }; play_at: 2.527s
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 2775
 i: 126; delta: 239
 i: 126; delta: 239; code: 0x41
 code_channel: 0x90
 data: i: 0x41; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x41; velocity: 0x0
-status: NoteOff; channel: 0; note: F4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128955000 }
+status: NoteOff; channel: 0; note: F4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261198000 }; play_at: 2.775s
 
 	data: 1; 1; hex: 0x1
+	current_time: 2776
 i: 129; delta: 1
 i: 129; delta: 1; code: 0x42
 code_channel: 0x80
 data: i: 0x42; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x42; velocity: 0x50
-status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128968000 }
+status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261212000 }; play_at: 2.776s
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 3024
 i: 133; delta: 239
 i: 133; delta: 239; code: 0x42
 code_channel: 0x90
 data: i: 0x42; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x42; velocity: 0x0
-status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128982000 }
+status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261228000 }; play_at: 3.024s
 
 	data: 1; 1; hex: 0x1
+	current_time: 3025
 i: 136; delta: 1
 i: 136; delta: 1; code: 0x44
 code_channel: 0x80
 data: i: 0x44; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x44; velocity: 0x50
-status: NoteOn; channel: 0; note: G#4/Ab4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 128998000 }
+status: NoteOn; channel: 0; note: G#4/Ab4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261242000 }; play_at: 3.025s
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 3273
 i: 140; delta: 239
 i: 140; delta: 239; code: 0x44
 code_channel: 0x90
 data: i: 0x44; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x44; velocity: 0x0
-status: NoteOff; channel: 0; note: G#4/Ab4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129012000 }
+status: NoteOff; channel: 0; note: G#4/Ab4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261258000 }; play_at: 3.273s
 
 	data: 1; 1; hex: 0x1
+	current_time: 3274
 i: 143; delta: 1
 i: 143; delta: 1; code: 0x46
 code_channel: 0x80
 data: i: 0x46; i+1: 0x50; i+2: 0x83
 code channe: 0x90; number: 0x46; velocity: 0x50
-status: NoteOn; channel: 0; note: A#4/Bb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129025000 }
+status: NoteOn; channel: 0; note: A#4/Bb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261272000 }; play_at: 3.274s
 
 	data: 83; 3; hex: 0x3
 	5F 95
+	current_time: 3772
 i: 147; delta: 479
 i: 147; delta: 479; code: 0x46
 code_channel: 0x90
 data: i: 0x46; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x46; velocity: 0x0
-status: NoteOff; channel: 0; note: A#4/Bb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129039000 }
+status: NoteOff; channel: 0; note: A#4/Bb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261288000 }; play_at: 3.772s
 
 	data: 1; 1; hex: 0x1
+	current_time: 3773
 i: 150; delta: 1
 i: 150; delta: 1; code: 0x4B
 code_channel: 0x80
 data: i: 0x4B; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x4B; velocity: 0x50
-status: NoteOn; channel: 0; note: D#5/Eb5; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129052000 }
+status: NoteOn; channel: 0; note: D#5/Eb5; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261302000 }; play_at: 3.773s
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 4021
 i: 154; delta: 239
 i: 154; delta: 239; code: 0x4B
 code_channel: 0x90
 data: i: 0x4B; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x4B; velocity: 0x0
-status: NoteOff; channel: 0; note: D#5/Eb5; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129066000 }
+status: NoteOff; channel: 0; note: D#5/Eb5; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261318000 }; play_at: 4.021s
 
 	data: 1; 1; hex: 0x1
+	current_time: 4022
 i: 157; delta: 1
 i: 157; delta: 1; code: 0x49
 code_channel: 0x80
 data: i: 0x49; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x49; velocity: 0x50
-status: NoteOn; channel: 0; note: C#5/Db5; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129079000 }
+status: NoteOn; channel: 0; note: C#5/Db5; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261332000 }; play_at: 4.022s
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 4270
 i: 161; delta: 239
 i: 161; delta: 239; code: 0x49
 code_channel: 0x90
 data: i: 0x49; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x49; velocity: 0x0
-status: NoteOff; channel: 0; note: C#5/Db5; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129093000 }
+status: NoteOff; channel: 0; note: C#5/Db5; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261348000 }; play_at: 4.27s
 
 	data: 1; 1; hex: 0x1
+	current_time: 4271
 i: 164; delta: 1
 i: 164; delta: 1; code: 0xFF
 code_channel: 0xFF
@@ -343,360 +386,403 @@ M T r k
 [0, FF, 3, 5, 50, 69, 61, 6E, 6F, 0, FF, 59, 2, 0, 0, 0, FF, 21, 1, 0, 0, 90, 33, 50, 81, 6F, 33, 0, 1, 33, 50, 77, 33, 0, 1, 3F, 50, 77, 3F, 0, 79, 3F, 50, 77, 3F, 0, 1, 3D, 50, 77, 3D, 0, 1, 3F, 50, 77, 3F, 0, 1, 38, 50, 81, 1F, 38, 0, 1, 36, 50, 81, 1F, 36, 0, 1, 38, 50, 81, 1F, 38, 0, 1, 36, 50, 81, 1F, 36, 0, 1, 33, 50, 81, 1F, 33, 0, 1, 36, 50, 81, 1F, 36, 0, 1, 33, 50, 81, 6F, 33, 0, 1, 3A, 50, 81, 6F, 3A, 0, 1, 33, 50, 81, 6F, 33, 0, 1, 3A, 50, 81, 6F, 3A, 0, 1, 33, 50, 81, 6F, 33, 0, 1, 3A, 50, 81, 6F, 3A, 0, 1, 33, 50, 81, 6F, 33, 0, 1, 3A, 50, 81, 6F, 3A, 0, 1, FF, 2F, 0]
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 1; delta: 0
 i: 1; delta: 0; code: 0xFF
 code_channel: 0xFF
 	formated: code: 0xFF03; data: length: 5; Ok("Piano")
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 10; delta: 0
 i: 10; delta: 0; code: 0xFF
 code_channel: 0xFF
 	formated: code: 0xFF59; data: 0 sharps; key: major key
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 16; delta: 0
 i: 16; delta: 0; code: 0xFF
 code_channel: 0xFF
 	formated: code: 0xFF21; data: shrug 0 0 90 33
-shrug 0
 
 	data: 0; 0; hex: 0x0
+	current_time: 0
 i: 21; delta: 0
 i: 21; delta: 0; code: 0x90
 code_channel: 0x90
 data: i: 0x90; i+1: 0x33; i+2: 0x50
 code channe: 0x90; number: 0x33; velocity: 0x50
-status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129156000 }
+status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261419000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 0
 i: 26; delta: 239
 i: 26; delta: 239; code: 0x33
 code_channel: 0x90
 data: i: 0x33; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x33; velocity: 0x0
-status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129170000 }
+status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261435000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 29; delta: 1
 i: 29; delta: 1; code: 0x33
 code_channel: 0x80
 data: i: 0x33; i+1: 0x50; i+2: 0x77
 code channe: 0x90; number: 0x33; velocity: 0x50
-status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129186000 }
+status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261450000 }; play_at: 0ns
 
 	data: 77; 119; hex: 0x77
+	current_time: 0
 i: 32; delta: 119
 i: 32; delta: 119; code: 0x33
 code_channel: 0x90
 data: i: 0x33; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x33; velocity: 0x0
-status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129199000 }
+status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261464000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 35; delta: 1
 i: 35; delta: 1; code: 0x3F
 code_channel: 0x80
 data: i: 0x3F; i+1: 0x50; i+2: 0x77
 code channe: 0x90; number: 0x3F; velocity: 0x50
-status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129212000 }
+status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261478000 }; play_at: 0ns
 
 	data: 77; 119; hex: 0x77
+	current_time: 0
 i: 38; delta: 119
 i: 38; delta: 119; code: 0x3F
 code_channel: 0x90
 data: i: 0x3F; i+1: 0x0; i+2: 0x79
 code channe: 0x80; number: 0x3F; velocity: 0x0
-status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129224000 }
+status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261492000 }; play_at: 0ns
 
 	data: 79; 121; hex: 0x79
+	current_time: 0
 i: 41; delta: 121
 i: 41; delta: 121; code: 0x3F
 code_channel: 0x80
 data: i: 0x3F; i+1: 0x50; i+2: 0x77
 code channe: 0x90; number: 0x3F; velocity: 0x50
-status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129237000 }
+status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261506000 }; play_at: 0ns
 
 	data: 77; 119; hex: 0x77
+	current_time: 0
 i: 44; delta: 119
 i: 44; delta: 119; code: 0x3F
 code_channel: 0x90
 data: i: 0x3F; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x3F; velocity: 0x0
-status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129250000 }
+status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261520000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 47; delta: 1
 i: 47; delta: 1; code: 0x3D
 code_channel: 0x80
 data: i: 0x3D; i+1: 0x50; i+2: 0x77
 code channe: 0x90; number: 0x3D; velocity: 0x50
-status: NoteOn; channel: 0; note: C#4/Db4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129262000 }
+status: NoteOn; channel: 0; note: C#4/Db4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261534000 }; play_at: 0ns
 
 	data: 77; 119; hex: 0x77
+	current_time: 0
 i: 50; delta: 119
 i: 50; delta: 119; code: 0x3D
 code_channel: 0x90
 data: i: 0x3D; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x3D; velocity: 0x0
-status: NoteOff; channel: 0; note: C#4/Db4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129275000 }
+status: NoteOff; channel: 0; note: C#4/Db4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261549000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 53; delta: 1
 i: 53; delta: 1; code: 0x3F
 code_channel: 0x80
 data: i: 0x3F; i+1: 0x50; i+2: 0x77
 code channe: 0x90; number: 0x3F; velocity: 0x50
-status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129288000 }
+status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261571000 }; play_at: 0ns
 
 	data: 77; 119; hex: 0x77
+	current_time: 0
 i: 56; delta: 119
 i: 56; delta: 119; code: 0x3F
 code_channel: 0x90
 data: i: 0x3F; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x3F; velocity: 0x0
-status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129300000 }
+status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261585000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 59; delta: 1
 i: 59; delta: 1; code: 0x38
 code_channel: 0x80
 data: i: 0x38; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x38; velocity: 0x50
-status: NoteOn; channel: 0; note: G#3/Ab3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129313000 }
+status: NoteOn; channel: 0; note: G#3/Ab3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261599000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 0
 i: 63; delta: 159
 i: 63; delta: 159; code: 0x38
 code_channel: 0x90
 data: i: 0x38; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x38; velocity: 0x0
-status: NoteOff; channel: 0; note: G#3/Ab3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129328000 }
+status: NoteOff; channel: 0; note: G#3/Ab3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261615000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 66; delta: 1
 i: 66; delta: 1; code: 0x36
 code_channel: 0x80
 data: i: 0x36; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x36; velocity: 0x50
-status: NoteOn; channel: 0; note: F#3/Gb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129340000 }
+status: NoteOn; channel: 0; note: F#3/Gb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261629000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 0
 i: 70; delta: 159
 i: 70; delta: 159; code: 0x36
 code_channel: 0x90
 data: i: 0x36; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x36; velocity: 0x0
-status: NoteOff; channel: 0; note: F#3/Gb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129355000 }
+status: NoteOff; channel: 0; note: F#3/Gb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261645000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 73; delta: 1
 i: 73; delta: 1; code: 0x38
 code_channel: 0x80
 data: i: 0x38; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x38; velocity: 0x50
-status: NoteOn; channel: 0; note: G#3/Ab3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129373000 }
+status: NoteOn; channel: 0; note: G#3/Ab3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261659000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 0
 i: 77; delta: 159
 i: 77; delta: 159; code: 0x38
 code_channel: 0x90
 data: i: 0x38; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x38; velocity: 0x0
-status: NoteOff; channel: 0; note: G#3/Ab3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129387000 }
+status: NoteOff; channel: 0; note: G#3/Ab3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261675000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 80; delta: 1
 i: 80; delta: 1; code: 0x36
 code_channel: 0x80
 data: i: 0x36; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x36; velocity: 0x50
-status: NoteOn; channel: 0; note: F#3/Gb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129400000 }
+status: NoteOn; channel: 0; note: F#3/Gb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261689000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 0
 i: 84; delta: 159
 i: 84; delta: 159; code: 0x36
 code_channel: 0x90
 data: i: 0x36; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x36; velocity: 0x0
-status: NoteOff; channel: 0; note: F#3/Gb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129414000 }
+status: NoteOff; channel: 0; note: F#3/Gb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261705000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 87; delta: 1
 i: 87; delta: 1; code: 0x33
 code_channel: 0x80
 data: i: 0x33; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x33; velocity: 0x50
-status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129426000 }
+status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261719000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 0
 i: 91; delta: 159
 i: 91; delta: 159; code: 0x33
 code_channel: 0x90
 data: i: 0x33; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x33; velocity: 0x0
-status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129441000 }
+status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261734000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 94; delta: 1
 i: 94; delta: 1; code: 0x36
 code_channel: 0x80
 data: i: 0x36; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x36; velocity: 0x50
-status: NoteOn; channel: 0; note: F#3/Gb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129453000 }
+status: NoteOn; channel: 0; note: F#3/Gb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261749000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	1F 31
+	current_time: 0
 i: 98; delta: 159
 i: 98; delta: 159; code: 0x36
 code_channel: 0x90
 data: i: 0x36; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x36; velocity: 0x0
-status: NoteOff; channel: 0; note: F#3/Gb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129467000 }
+status: NoteOff; channel: 0; note: F#3/Gb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261767000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 101; delta: 1
 i: 101; delta: 1; code: 0x33
 code_channel: 0x80
 data: i: 0x33; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x33; velocity: 0x50
-status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129480000 }
+status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261782000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 0
 i: 105; delta: 239
 i: 105; delta: 239; code: 0x33
 code_channel: 0x90
 data: i: 0x33; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x33; velocity: 0x0
-status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129494000 }
+status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261797000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 108; delta: 1
 i: 108; delta: 1; code: 0x3A
 code_channel: 0x80
 data: i: 0x3A; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x3A; velocity: 0x50
-status: NoteOn; channel: 0; note: A#3/Bb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129507000 }
+status: NoteOn; channel: 0; note: A#3/Bb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261812000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 0
 i: 112; delta: 239
 i: 112; delta: 239; code: 0x3A
 code_channel: 0x90
 data: i: 0x3A; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x3A; velocity: 0x0
-status: NoteOff; channel: 0; note: A#3/Bb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129521000 }
+status: NoteOff; channel: 0; note: A#3/Bb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261827000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 115; delta: 1
 i: 115; delta: 1; code: 0x33
 code_channel: 0x80
 data: i: 0x33; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x33; velocity: 0x50
-status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129534000 }
+status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261842000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 0
 i: 119; delta: 239
 i: 119; delta: 239; code: 0x33
 code_channel: 0x90
 data: i: 0x33; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x33; velocity: 0x0
-status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129555000 }
+status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261861000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 122; delta: 1
 i: 122; delta: 1; code: 0x3A
 code_channel: 0x80
 data: i: 0x3A; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x3A; velocity: 0x50
-status: NoteOn; channel: 0; note: A#3/Bb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129567000 }
+status: NoteOn; channel: 0; note: A#3/Bb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261882000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 0
 i: 126; delta: 239
 i: 126; delta: 239; code: 0x3A
 code_channel: 0x90
 data: i: 0x3A; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x3A; velocity: 0x0
-status: NoteOff; channel: 0; note: A#3/Bb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129581000 }
+status: NoteOff; channel: 0; note: A#3/Bb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261904000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 129; delta: 1
 i: 129; delta: 1; code: 0x33
 code_channel: 0x80
 data: i: 0x33; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x33; velocity: 0x50
-status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129594000 }
+status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261922000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 0
 i: 133; delta: 239
 i: 133; delta: 239; code: 0x33
 code_channel: 0x90
 data: i: 0x33; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x33; velocity: 0x0
-status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129608000 }
+status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261941000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 136; delta: 1
 i: 136; delta: 1; code: 0x3A
 code_channel: 0x80
 data: i: 0x3A; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x3A; velocity: 0x50
-status: NoteOn; channel: 0; note: A#3/Bb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129621000 }
+status: NoteOn; channel: 0; note: A#3/Bb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261958000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 0
 i: 140; delta: 239
 i: 140; delta: 239; code: 0x3A
 code_channel: 0x90
 data: i: 0x3A; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x3A; velocity: 0x0
-status: NoteOff; channel: 0; note: A#3/Bb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129635000 }
+status: NoteOff; channel: 0; note: A#3/Bb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261981000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 143; delta: 1
 i: 143; delta: 1; code: 0x33
 code_channel: 0x80
 data: i: 0x33; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x33; velocity: 0x50
-status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129647000 }
+status: NoteOn; channel: 0; note: D#3/Eb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 261999000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 0
 i: 147; delta: 239
 i: 147; delta: 239; code: 0x33
 code_channel: 0x90
 data: i: 0x33; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x33; velocity: 0x0
-status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129661000 }
+status: NoteOff; channel: 0; note: D#3/Eb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 262018000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 150; delta: 1
 i: 150; delta: 1; code: 0x3A
 code_channel: 0x80
 data: i: 0x3A; i+1: 0x50; i+2: 0x81
 code channe: 0x90; number: 0x3A; velocity: 0x50
-status: NoteOn; channel: 0; note: A#3/Bb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129674000 }
+status: NoteOn; channel: 0; note: A#3/Bb3; velocity: 80; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 262036000 }; play_at: 0ns
 
 	data: 81; 1; hex: 0x1
 	6F 111
+	current_time: 0
 i: 154; delta: 239
 i: 154; delta: 239; code: 0x3A
 code_channel: 0x90
 data: i: 0x3A; i+1: 0x0; i+2: 0x1
 code channe: 0x80; number: 0x3A; velocity: 0x0
-status: NoteOff; channel: 0; note: A#3/Bb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706468443, tv_nsec: 129688000 }
+status: NoteOff; channel: 0; note: A#3/Bb3; velocity: 0; pressed_at: SystemTime { tv_sec: 1706469503, tv_nsec: 262055000 }; play_at: 0ns
 
 	data: 1; 1; hex: 0x1
+	current_time: 0
 i: 157; delta: 1
 i: 157; delta: 1; code: 0xFF
 code_channel: 0xFF

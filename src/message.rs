@@ -1,5 +1,5 @@
 use std::path::Display;
-use std::time::SystemTime;
+use std::time::{Duration, SystemTime};
 
 pub struct Message {
     shrug: u8,
@@ -7,7 +7,8 @@ pub struct Message {
     channel: u8,
     note: u8,
     velocity: u8,
-    pressed_at: SystemTime,
+    pressed_at: SystemTime, // TODO maybe remove and replace with below
+    play_at: Duration,
     
     raw: [ u8; 256 ],
 }
@@ -175,17 +176,17 @@ impl Message {
             _ => Status::Unknown,
         };
 
-        Message { shrug: data[0], status, channel: data[1]&0b00001111, note: data[2], velocity: data[3], pressed_at, raw: data, }
+        Message { shrug: data[0], status, channel: data[1]&0b00001111, note: data[2], velocity: data[3], pressed_at, play_at: Duration::new(0, 0), raw: data, }
     }
 
-    pub fn from_midi(status_channel: u8, note_number: u8, velocity: u8) -> Self {
+    pub fn from_midi(status_channel: u8, note_number: u8, velocity: u8, play_at: Duration) -> Self {
         let status = match status_channel&0b11110000 {
             144 => Status::NoteOn,
             128 => Status::NoteOff,
             _ => Status::Unknown,
         };
 
-        Message { shrug: 0, status, channel: status_channel&0b00001111, note: note_number, velocity, pressed_at: SystemTime::now(), raw: [0; 256], }
+        Message { shrug: 0, status, channel: status_channel&0b00001111, note: note_number, velocity, pressed_at: SystemTime::now(), play_at, raw: [0; 256], }
     }
 }
 
@@ -193,6 +194,6 @@ impl Message {
 impl std::fmt::Display for Message {
     // Example method: Display the message details
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "status: {0}; channel: {1}; note: {3}; velocity: {2}; pressed_at: {4:?}", self.status, self.channel, self.velocity, there_has_to_be_a_better_way(self.note), self.pressed_at)
+        write!(f, "status: {0}; channel: {1}; note: {3}; velocity: {2}; pressed_at: {4:?}; play_at: {5:?}", self.status, self.channel, self.velocity, there_has_to_be_a_better_way(self.note), self.pressed_at, self.play_at)
     }
 }

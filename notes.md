@@ -44,3 +44,5 @@ ah, it was goind where it shouldnt, leading to issue
 this is fine, they have same code anyway
 
 it was 1 off, but it was ok alone, so it didnt matter
+couold do the symbol, but its fine. better this way
+oh cuase those are even smaller, but this is milli, i see now

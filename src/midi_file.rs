@@ -1,6 +1,7 @@
+use core::time;
 use std::io::Read;
 use std::thread::sleep;
-use std::time::SystemTime;
+use std::time::{Duration, SystemTime};
 
 use crate::message::Message;
 
@@ -61,6 +62,8 @@ impl MidiFile {
             let mut running_status = false;
             let mut code_channel = 0;
             let mut i = 0; // want this in a for, but i will barely use the i++
+            let mut current_time = 0;
+            let mut time_per_qn = 0;
             while i < data.len() {
                 // let delta_time = data[i];
                 // TODO maybe length is at least 2B
@@ -76,6 +79,8 @@ impl MidiFile {
                     delta_time = delta_time << 7 | (data[i]&0b0111_1111) as u64;
                 }
                 i+=1;
+                current_time += delta_time * (time_per_qn / header.division as u64) / 1000;
+                println!("\tcurrent_time: {}", current_time);
                 
     
                 println!("i: {}; delta: {}", i, delta_time);
@@ -126,8 +131,10 @@ impl MidiFile {
                             0x0051 => {
                                 let length: usize = data[i] as usize;
                                 i+=1;
-                                println!("{} μs/quarter-note", as_u24_be(data[i..i+3].try_into().expect("length failed")));
+                                time_per_qn = as_u24_be(data[i..i+3].try_into().expect("length failed"));
+                                println!("{} μs/quarter-note", time_per_qn);
                                 i+=3;
+
                             }
                             0x002F => {
                                 i+=1;
@@ -140,7 +147,6 @@ impl MidiFile {
                                 i+=1;
                                 println!("shrug {:X?} {:X?} {:X?} {:X?}", data[i], data[i+1], data[i+2], data[i+3]);
                                 i+=1;
-                                println!("shrug {:X?}", data[i]);
                             }
                             _ => {
                                 println!("unknown 0x{:X?}", code&0b0000_0000_1111_1111);
@@ -157,12 +163,7 @@ impl MidiFile {
                         println!("Control Change: channel: {}; controller: {}; value: {}", data[i]&0b0000_1111, data[i+1], data[i+2]);
                         i+=3;
                     }
-                    // 0x80 => {
-                    //     println!("0x{:X?} 0x{:X?} 0x{:X?}", data[i], data[i+1], data[i+2]);
-                    //     println!("{}", Message::from_midi(data[i], data[i+1], data[i+2]));
-                    //     i+=3;
-                    // }
-                    0x90|0x80 => {
+                    0x90 | 0x80 => {
                         // if !running_status {
                         //     code_channel = data[i];
                         // }
@@ -188,7 +189,7 @@ impl MidiFile {
                         };
                         println!("code channe: 0x{:X?}; number: 0x{:X?}; velocity: 0x{:X?}", code_channel, number, velocity);
     
-                        println!("{}", Message::from_midi(code_channel, number, velocity));
+                        println!("{}", Message::from_midi(code_channel, number, velocity, Duration::from_millis(current_time)));
                         
                         if running_status {
                             i+=2;
