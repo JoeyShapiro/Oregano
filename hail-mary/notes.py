@@ -1,7 +1,7 @@
 import time
 import math
 
-with open('test.mid', 'rb') as f:
+with open('hail-mary/test.mid', 'rb') as f:
     data = f.read()
 
 start = False
@@ -41,7 +41,8 @@ while i < len(data):
     if data[i] == 0xff and data[i+1] == 0x2f and data[i+2] == 0x00:
         start = False
         print('end of track')
-        notes.append({'end': True, 'detla': 0, 'time': total})
+        total += delta * (500_000/480) / 1000
+        notes.append({'end': True, 'detla': 0, 'time': total/1000, 'channel': idx-1})
         try:
             i = indexes[idx]
             idx+=1
@@ -55,7 +56,6 @@ while i < len(data):
         print('start')
         i+=1
 
-    print(data[i], hex(data[i]))
     if start:
         # equation attempts:
         """
@@ -83,6 +83,8 @@ while i < len(data):
 #     else:
 #         print(f"{i+1}\t{round(ticks/1000, 3)}s\t\033[{'32' if note['on'] == True else '31'}m{note}\033[0m")
 
+notes = sorted(notes, key=lambda x: x['time'])
+
 time_start = time.time()
 current_time = 0
 cur_note = 0
@@ -90,7 +92,7 @@ while True:
     current_time = time.time()-time_start
     if current_time >= notes[cur_note]['time']:
         if 'end' in notes[cur_note]:
-            print(f"{cur_note+1}\t#################### end #################")
+            print(f"{cur_note+1}\t#################### end channel {notes[cur_note]['channel']} #################")
         else:
             print(f"{cur_note+1}\t{round(ticks/1000, 3)}s\t\033[{'32' if notes[cur_note]['on'] == True else '31'}m{notes[cur_note]}\033[0m")
         cur_note+=1
