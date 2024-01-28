@@ -53,6 +53,8 @@ impl MidiFile {
         println!("{:X?}", data);
 
         // loops over each event
+        let mut running_status = false;
+        let mut code_channel = 0;
         let mut i = 0; // want this in a for, but i will barely use the i++
         while i < data.len() {
             // let delta_time = data[i];
@@ -69,13 +71,20 @@ impl MidiFile {
                 delta_time = delta_time << 7 | (data[i]&0b0111_1111) as u64;
             }
             i+=1;
+            
 
             println!("i: {}; delta: {}", i, delta_time);
             println!("i: {}; delta: {}; code: 0x{:X?}", i, delta_time, data[i]);
             // how long is a beat
             // sleep(delta_time);
 
-            match data[i]&0b1111_0000 {
+            // TODO this does not seem right, must be jumping over something
+            if !running_status || data[i] == 0xFF{
+                code_channel = data[i];
+            }
+            println!("code_channel: 0x{:X?}", code_channel);
+
+            match code_channel&0b1111_0000 {
                 0xF0 => {
                     let code = as_u16_be(data[i..i+2].try_into().expect("length failed"));
                     i+=2;
@@ -115,6 +124,17 @@ impl MidiFile {
                             println!("{} μs/quarter-note", as_u24_be(data[i..i+3].try_into().expect("length failed")));
                             i+=3;
                         }
+                        0x002F => {
+                            i+=1;
+                            running_status = false;
+                            println!("end of track");
+                            i+=1;
+                        }
+                        0x0021 => {
+                            i+=1;
+                            println!("shrug");
+                            i+=2;
+                        }
                         _ => {
                             println!("unknown 0x{:X?}", code&0b0000_0000_1111_1111);
                             break;
@@ -130,15 +150,45 @@ impl MidiFile {
                     println!("Control Change: channel: {}; controller: {}; value: {}", data[i]&0b0000_1111, data[i+1], data[i+2]);
                     i+=3;
                 }
-                0x80 => {
-                    println!("0x{:X?} 0x{:X?} 0x{:X?}", data[i], data[i+1], data[i+2]);
-                    println!("{}", Message::from_midi(data[i], data[i+1], data[i+2]));
-                    i+=3;
-                }
-                0x90 => {
-                    println!("0x{:X?} 0x{:X?} 0x{:X?}", data[i], data[i+1], data[i+2]);
-                    println!("{}", Message::from_midi(data[i], data[i+1], data[i+2]));
-                    i+=3;
+                // 0x80 => {
+                //     println!("0x{:X?} 0x{:X?} 0x{:X?}", data[i], data[i+1], data[i+2]);
+                //     println!("{}", Message::from_midi(data[i], data[i+1], data[i+2]));
+                //     i+=3;
+                // }
+                0x90|0x80 => {
+                    // if !running_status {
+                    //     code_channel = data[i];
+                    // }
+                    println!("data: i: 0x{:X?}; i+1: 0x{:X?}; i+2: 0x{:X?}", data[i], data[i+1], data[i+2]);
+
+                    let number = if running_status {
+                        data[i]
+                    } else {
+                        data[i+1]
+                    };
+
+                    let velocity = if running_status {
+                        data[i+1]
+                    } else {
+                        data[i+2]
+                    };
+
+                    // if the velocity is 0, set the code part to 0x8?
+                    code_channel = if velocity == 0 {
+                        code_channel&0b0000_1111|0x80
+                    } else {
+                        code_channel&0b0000_1111|0x90
+                    };
+                    println!("code channe: 0x{:X?}; number: 0x{:X?}; velocity: 0x{:X?}", code_channel, number, velocity);
+
+                    println!("{}", Message::from_midi(code_channel, number, velocity));
+                    
+                    if running_status {
+                        i+=2;
+                    } else {
+                        i+=3;
+                        running_status = true;
+                    }
                 }
                 0x70 => {
                     match data[i]&0b0000_1111 {
@@ -168,7 +218,7 @@ impl MidiFile {
                         0x04 => {
                             i+=1;
                             println!("Registered Parameter Number LSB: {}", data[i]);
-                            i+=1;
+                            // i+=1;
                         }
                         0x06|0x07|0x08|0x09|0x0A|0x0B|0x0C|0x0D|0x0E|0x0F => {
                             i+=1;

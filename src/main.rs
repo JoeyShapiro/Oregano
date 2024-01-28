@@ -47,7 +47,7 @@ fn main() {
     println!("out: {} ({:X?})", out, out);
     // MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned());
     // MidiFile::new("Nintendo_Wii_Theme_for_Bb_Clarinet.mid".to_owned());
-    MidiFile::new("Simple_MIDI.mid".to_owned());
+    MidiFile::new("hail-mary/test.mid".to_owned());
     // TOPDO is length encoded faster. how would it work in python and stuff. test it now
     for device in rusb::devices().unwrap().iter() {
         let device_desc = device.device_descriptor().unwrap();

@@ -4,202 +4,337 @@ FE
 	7F 127
 out: 16383 (3FFF)
 M T r k
-6 1 1; ticks per quater note: 480 (1e0)
-144
-[0, FF, 3, 6, 50, 69, 61, 6E, 6F, 0, 0, FF, 58, 4, 4, 2, 18, 8, 0, FF, 59, 2, 0, 0, 0, FF, 51, 3, 7, A1, 20, 0, B0, 79, 0, 0, C0, 0, 0, B0, 7, 64, 0, A, 40, 0, 5B, 0, 0, 5D, 0, 0, FF, 21, 1, 0, 0, 90, 54, 50, 83, 47, 54, 0, 19, 48, 50, 83, 47, 48, 0, 19, 3C, 50, 83, 47, 3C, 0, 19, 54, 50, 83, 47, 54, 0, 19, 48, 50, 83, 47, 48, 0, 19, 3C, 50, 83, 47, 3C, 0, 19, 54, 50, 83, 47, 54, 0, 19, 48, 50, 83, 47, 48, 0, 19, 3C, 50, 83, 47, 3C, 0, 83, 79, 3C, 50, 0, 48, 50, 0, 54, 50, 83, 47, 3C, 0, 0, 48, 0, 0, 54, 0, 1, FF, 2F, 0]
+6 1 2; ticks per quater note: 480 (1e0)
+167
+[0, FF, 3, 5, 50, 69, 61, 6E, 6F, 0, FF, 58, 4, 4, 2, 18, 8, 0, FF, 59, 2, 0, 0, 0, FF, 51, 3, 7, A1, 20, 0, B0, 79, 0, 0, 64, 0, 0, 65, 0, 0, 6, C, 0, 64, 7F, 0, 65, 7F, 0, C0, 0, 0, B0, 7, 64, 0, A, 40, 0, 5B, 0, 0, 5D, 0, 0, FF, 21, 1, 0, 87, 40, 90, 44, 50, 81, 1F, 44, 0, 1, 42, 50, 81, 1F, 42, 0, 1, 44, 50, 81, 1F, 44, 0, 1, 42, 50, 81, 1F, 42, 0, 1, 3F, 50, 81, 1F, 3F, 0, 1, 42, 50, 81, 1F, 42, 0, 1, 3F, 50, 81, 6F, 3F, 0, 1, 41, 50, 81, 6F, 41, 0, 1, 42, 50, 81, 6F, 42, 0, 1, 44, 50, 81, 6F, 44, 0, 1, 46, 50, 83, 5F, 46, 0, 1, 4B, 50, 81, 6F, 4B, 0, 1, 49, 50, 81, 6F, 49, 0, 1, FF, 2F, 0]
 
 	data: 0; 0; hex: 0x0
 i: 1; delta: 0
 i: 1; delta: 0; code: 0xFF
-	formated: code: 0xFF03; data: length: 6; Ok("Piano\0")
+code_channel: 0xFF
+	formated: code: 0xFF03; data: length: 5; Ok("Piano")
 
 	data: 0; 0; hex: 0x0
-i: 11; delta: 0
-i: 11; delta: 0; code: 0xFF
+i: 10; delta: 0
+i: 10; delta: 0; code: 0xFF
+code_channel: 0xFF
 	formated: code: 0xFF58; data: 4/4; clocks per metronome tick: 24; 32nd notes per quater note: 8
 
 	data: 0; 0; hex: 0x0
-i: 19; delta: 0
-i: 19; delta: 0; code: 0xFF
+i: 18; delta: 0
+i: 18; delta: 0; code: 0xFF
+code_channel: 0xFF
 	formated: code: 0xFF59; data: 0 sharps; key: major key
 
 	data: 0; 0; hex: 0x0
-i: 25; delta: 0
-i: 25; delta: 0; code: 0xFF
+i: 24; delta: 0
+i: 24; delta: 0; code: 0xFF
+code_channel: 0xFF
 	formated: code: 0xFF51; data: 500000 μs/quarter-note
 
 	data: 0; 0; hex: 0x0
-i: 32; delta: 0
-i: 32; delta: 0; code: 0xB0
+i: 31; delta: 0
+i: 31; delta: 0; code: 0xB0
+code_channel: 0xB0
 Control Change: channel: 0; controller: 121; value: 0
 
 	data: 0; 0; hex: 0x0
-i: 36; delta: 0
-i: 36; delta: 0; code: 0xC0
-channel: 0; controller: 0; value: 0
-
-	data: B0; 48; hex: 0x30
-	7 7
-i: 41; delta: 6151
-i: 41; delta: 6151; code: 0x64
+i: 35; delta: 0
+i: 35; delta: 0; code: 0x64
+code_channel: 0x64
 Registered Parameter Number LSB: 0
 
-	data: A; 10; hex: 0xA
-i: 44; delta: 10
-i: 44; delta: 10; code: 0x40
-Damper pedal on/off (Sustain): off
+	data: 0; 0; hex: 0x0
+i: 37; delta: 0
+i: 37; delta: 0; code: 0x0
+code_channel: 0x0
+Bank Select: 101
 
-	data: 5B; 91; hex: 0x5B
-i: 47; delta: 91
-i: 47; delta: 91; code: 0x0
-Bank Select: 0
+	data: 0; 0; hex: 0x0
+i: 40; delta: 0
+i: 40; delta: 0; code: 0x0
+code_channel: 0x0
+Bank Select: 6
 
-	data: 5D; 93; hex: 0x5D
-i: 50; delta: 93
-i: 50; delta: 93; code: 0x0
-Bank Select: 0
+	data: C; 12; hex: 0xC
+i: 43; delta: 12
+i: 43; delta: 12; code: 0x0
+code_channel: 0x0
+Bank Select: 100
 
-	data: FF; 127; hex: 0x7F
-	21 33
-i: 54; delta: 16289
-i: 54; delta: 16289; code: 0x1
-Modulation wheel: 0
+	data: 7F; 127; hex: 0x7F
+i: 46; delta: 127
+i: 46; delta: 127; code: 0x0
+code_channel: 0x0
+Bank Select: 101
+
+	data: 7F; 127; hex: 0x7F
+i: 49; delta: 127
+i: 49; delta: 127; code: 0x0
+code_channel: 0x0
+Bank Select: 192
+
+	data: 0; 0; hex: 0x0
+i: 52; delta: 0
+i: 52; delta: 0; code: 0x0
+code_channel: 0x0
+Bank Select: 176
+
+	data: 7; 7; hex: 0x7
+i: 55; delta: 7
+i: 55; delta: 7; code: 0x64
+code_channel: 0x64
+Registered Parameter Number LSB: 0
 
 	data: 0; 0; hex: 0x0
 i: 57; delta: 0
-i: 57; delta: 0; code: 0x90
-0x90 0x54 0x50
-status: NoteOn; channel: 0; note: C6; velocity: 80; pressed_at: SystemTime { tv_sec: 1706137022, tv_nsec: 192661000 }
-
-	data: 83; 3; hex: 0x3
-	47 71
-i: 62; delta: 455
-i: 62; delta: 455; code: 0x54
-Portamento Control: 0
-
-	data: 19; 25; hex: 0x19
-i: 65; delta: 25
-i: 65; delta: 25; code: 0x48
-Sound Controller 3 (shrug): 80
-
-	data: 83; 3; hex: 0x3
-	47 71
-i: 69; delta: 455
-i: 69; delta: 455; code: 0x48
-Sound Controller 3 (shrug): 0
-
-	data: 19; 25; hex: 0x19
-i: 72; delta: 25
-i: 72; delta: 25; code: 0x3C
-undefined: 80
-
-	data: 83; 3; hex: 0x3
-	47 71
-i: 76; delta: 455
-i: 76; delta: 455; code: 0x3C
-undefined: 0
-
-	data: 19; 25; hex: 0x19
-i: 79; delta: 25
-i: 79; delta: 25; code: 0x54
-Portamento Control: 80
-
-	data: 83; 3; hex: 0x3
-	47 71
-i: 83; delta: 455
-i: 83; delta: 455; code: 0x54
-Portamento Control: 0
-
-	data: 19; 25; hex: 0x19
-i: 86; delta: 25
-i: 86; delta: 25; code: 0x48
-Sound Controller 3 (shrug): 80
-
-	data: 83; 3; hex: 0x3
-	47 71
-i: 90; delta: 455
-i: 90; delta: 455; code: 0x48
-Sound Controller 3 (shrug): 0
-
-	data: 19; 25; hex: 0x19
-i: 93; delta: 25
-i: 93; delta: 25; code: 0x3C
-undefined: 80
-
-	data: 83; 3; hex: 0x3
-	47 71
-i: 97; delta: 455
-i: 97; delta: 455; code: 0x3C
-undefined: 0
-
-	data: 19; 25; hex: 0x19
-i: 100; delta: 25
-i: 100; delta: 25; code: 0x54
-Portamento Control: 80
-
-	data: 83; 3; hex: 0x3
-	47 71
-i: 104; delta: 455
-i: 104; delta: 455; code: 0x54
-Portamento Control: 0
-
-	data: 19; 25; hex: 0x19
-i: 107; delta: 25
-i: 107; delta: 25; code: 0x48
-Sound Controller 3 (shrug): 80
-
-	data: 83; 3; hex: 0x3
-	47 71
-i: 111; delta: 455
-i: 111; delta: 455; code: 0x48
-Sound Controller 3 (shrug): 0
-
-	data: 19; 25; hex: 0x19
-i: 114; delta: 25
-i: 114; delta: 25; code: 0x3C
-undefined: 80
-
-	data: 83; 3; hex: 0x3
-	47 71
-i: 118; delta: 455
-i: 118; delta: 455; code: 0x3C
-undefined: 0
-
-	data: 83; 3; hex: 0x3
-	79 121
-i: 122; delta: 505
-i: 122; delta: 505; code: 0x3C
-undefined: 80
+i: 57; delta: 0; code: 0xA
+code_channel: 0xA
+pan: 64
 
 	data: 0; 0; hex: 0x0
-i: 125; delta: 0
-i: 125; delta: 0; code: 0x48
-Sound Controller 3 (shrug): 80
+i: 60; delta: 0
+i: 60; delta: 0; code: 0x5B
+code_channel: 0x5B
+effects 1 depth: 0
 
 	data: 0; 0; hex: 0x0
-i: 128; delta: 0
-i: 128; delta: 0; code: 0x54
-Portamento Control: 80
-
-	data: 83; 3; hex: 0x3
-	47 71
-i: 132; delta: 455
-i: 132; delta: 455; code: 0x3C
-undefined: 0
+i: 63; delta: 0
+i: 63; delta: 0; code: 0x5D
+code_channel: 0x5D
+effects 3 depth: 0
 
 	data: 0; 0; hex: 0x0
-i: 135; delta: 0
-i: 135; delta: 0; code: 0x48
-Sound Controller 3 (shrug): 0
+i: 66; delta: 0
+i: 66; delta: 0; code: 0xFF
+code_channel: 0xFF
+	formated: code: 0xFF21; data: shrug
 
-	data: 0; 0; hex: 0x0
-i: 138; delta: 0
-i: 138; delta: 0; code: 0x54
-Portamento Control: 0
+	data: 40; 64; hex: 0x40
+i: 72; delta: 64
+i: 72; delta: 64; code: 0x90
+code_channel: 0x90
+data: i: 0x90; i+1: 0x44; i+2: 0x50
+code channe: 0x90; number: 0x44; velocity: 0x50
+status: NoteOn; channel: 0; note: G#4/Ab4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587386000 }
+
+	data: 81; 1; hex: 0x1
+	1F 31
+i: 77; delta: 159
+i: 77; delta: 159; code: 0x44
+code_channel: 0x90
+data: i: 0x44; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x44; velocity: 0x0
+status: NoteOff; channel: 0; note: G#4/Ab4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587424000 }
 
 	data: 1; 1; hex: 0x1
-i: 141; delta: 1
-i: 141; delta: 1; code: 0xFF
-	formated: code: 0xFF2F; data: unknown 0x2F
+i: 80; delta: 1
+i: 80; delta: 1; code: 0x42
+code_channel: 0x80
+data: i: 0x42; i+1: 0x50; i+2: 0x81
+code channe: 0x90; number: 0x42; velocity: 0x50
+status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587440000 }
+
+	data: 81; 1; hex: 0x1
+	1F 31
+i: 84; delta: 159
+i: 84; delta: 159; code: 0x42
+code_channel: 0x90
+data: i: 0x42; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x42; velocity: 0x0
+status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587458000 }
+
+	data: 1; 1; hex: 0x1
+i: 87; delta: 1
+i: 87; delta: 1; code: 0x44
+code_channel: 0x80
+data: i: 0x44; i+1: 0x50; i+2: 0x81
+code channe: 0x90; number: 0x44; velocity: 0x50
+status: NoteOn; channel: 0; note: G#4/Ab4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587474000 }
+
+	data: 81; 1; hex: 0x1
+	1F 31
+i: 91; delta: 159
+i: 91; delta: 159; code: 0x44
+code_channel: 0x90
+data: i: 0x44; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x44; velocity: 0x0
+status: NoteOff; channel: 0; note: G#4/Ab4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587499000 }
+
+	data: 1; 1; hex: 0x1
+i: 94; delta: 1
+i: 94; delta: 1; code: 0x42
+code_channel: 0x80
+data: i: 0x42; i+1: 0x50; i+2: 0x81
+code channe: 0x90; number: 0x42; velocity: 0x50
+status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587515000 }
+
+	data: 81; 1; hex: 0x1
+	1F 31
+i: 98; delta: 159
+i: 98; delta: 159; code: 0x42
+code_channel: 0x90
+data: i: 0x42; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x42; velocity: 0x0
+status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587533000 }
+
+	data: 1; 1; hex: 0x1
+i: 101; delta: 1
+i: 101; delta: 1; code: 0x3F
+code_channel: 0x80
+data: i: 0x3F; i+1: 0x50; i+2: 0x81
+code channe: 0x90; number: 0x3F; velocity: 0x50
+status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587549000 }
+
+	data: 81; 1; hex: 0x1
+	1F 31
+i: 105; delta: 159
+i: 105; delta: 159; code: 0x3F
+code_channel: 0x90
+data: i: 0x3F; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x3F; velocity: 0x0
+status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587566000 }
+
+	data: 1; 1; hex: 0x1
+i: 108; delta: 1
+i: 108; delta: 1; code: 0x42
+code_channel: 0x80
+data: i: 0x42; i+1: 0x50; i+2: 0x81
+code channe: 0x90; number: 0x42; velocity: 0x50
+status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587583000 }
+
+	data: 81; 1; hex: 0x1
+	1F 31
+i: 112; delta: 159
+i: 112; delta: 159; code: 0x42
+code_channel: 0x90
+data: i: 0x42; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x42; velocity: 0x0
+status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587600000 }
+
+	data: 1; 1; hex: 0x1
+i: 115; delta: 1
+i: 115; delta: 1; code: 0x3F
+code_channel: 0x80
+data: i: 0x3F; i+1: 0x50; i+2: 0x81
+code channe: 0x90; number: 0x3F; velocity: 0x50
+status: NoteOn; channel: 0; note: D#4/Eb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587617000 }
+
+	data: 81; 1; hex: 0x1
+	6F 111
+i: 119; delta: 239
+i: 119; delta: 239; code: 0x3F
+code_channel: 0x90
+data: i: 0x3F; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x3F; velocity: 0x0
+status: NoteOff; channel: 0; note: D#4/Eb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587635000 }
+
+	data: 1; 1; hex: 0x1
+i: 122; delta: 1
+i: 122; delta: 1; code: 0x41
+code_channel: 0x80
+data: i: 0x41; i+1: 0x50; i+2: 0x81
+code channe: 0x90; number: 0x41; velocity: 0x50
+status: NoteOn; channel: 0; note: F4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587655000 }
+
+	data: 81; 1; hex: 0x1
+	6F 111
+i: 126; delta: 239
+i: 126; delta: 239; code: 0x41
+code_channel: 0x90
+data: i: 0x41; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x41; velocity: 0x0
+status: NoteOff; channel: 0; note: F4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587679000 }
+
+	data: 1; 1; hex: 0x1
+i: 129; delta: 1
+i: 129; delta: 1; code: 0x42
+code_channel: 0x80
+data: i: 0x42; i+1: 0x50; i+2: 0x81
+code channe: 0x90; number: 0x42; velocity: 0x50
+status: NoteOn; channel: 0; note: F#4/Gb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587699000 }
+
+	data: 81; 1; hex: 0x1
+	6F 111
+i: 133; delta: 239
+i: 133; delta: 239; code: 0x42
+code_channel: 0x90
+data: i: 0x42; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x42; velocity: 0x0
+status: NoteOff; channel: 0; note: F#4/Gb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587722000 }
+
+	data: 1; 1; hex: 0x1
+i: 136; delta: 1
+i: 136; delta: 1; code: 0x44
+code_channel: 0x80
+data: i: 0x44; i+1: 0x50; i+2: 0x81
+code channe: 0x90; number: 0x44; velocity: 0x50
+status: NoteOn; channel: 0; note: G#4/Ab4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587748000 }
+
+	data: 81; 1; hex: 0x1
+	6F 111
+i: 140; delta: 239
+i: 140; delta: 239; code: 0x44
+code_channel: 0x90
+data: i: 0x44; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x44; velocity: 0x0
+status: NoteOff; channel: 0; note: G#4/Ab4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587771000 }
+
+	data: 1; 1; hex: 0x1
+i: 143; delta: 1
+i: 143; delta: 1; code: 0x46
+code_channel: 0x80
+data: i: 0x46; i+1: 0x50; i+2: 0x83
+code channe: 0x90; number: 0x46; velocity: 0x50
+status: NoteOn; channel: 0; note: A#4/Bb4; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587791000 }
+
+	data: 83; 3; hex: 0x3
+	5F 95
+i: 147; delta: 479
+i: 147; delta: 479; code: 0x46
+code_channel: 0x90
+data: i: 0x46; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x46; velocity: 0x0
+status: NoteOff; channel: 0; note: A#4/Bb4; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587814000 }
+
+	data: 1; 1; hex: 0x1
+i: 150; delta: 1
+i: 150; delta: 1; code: 0x4B
+code_channel: 0x80
+data: i: 0x4B; i+1: 0x50; i+2: 0x81
+code channe: 0x90; number: 0x4B; velocity: 0x50
+status: NoteOn; channel: 0; note: D#5/Eb5; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587834000 }
+
+	data: 81; 1; hex: 0x1
+	6F 111
+i: 154; delta: 239
+i: 154; delta: 239; code: 0x4B
+code_channel: 0x90
+data: i: 0x4B; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x4B; velocity: 0x0
+status: NoteOff; channel: 0; note: D#5/Eb5; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587857000 }
+
+	data: 1; 1; hex: 0x1
+i: 157; delta: 1
+i: 157; delta: 1; code: 0x49
+code_channel: 0x80
+data: i: 0x49; i+1: 0x50; i+2: 0x81
+code channe: 0x90; number: 0x49; velocity: 0x50
+status: NoteOn; channel: 0; note: C#5/Db5; velocity: 80; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587878000 }
+
+	data: 81; 1; hex: 0x1
+	6F 111
+i: 161; delta: 239
+i: 161; delta: 239; code: 0x49
+code_channel: 0x90
+data: i: 0x49; i+1: 0x0; i+2: 0x1
+code channe: 0x80; number: 0x49; velocity: 0x0
+status: NoteOff; channel: 0; note: C#5/Db5; velocity: 0; pressed_at: SystemTime { tv_sec: 1706467375, tv_nsec: 587900000 }
+
+	data: 1; 1; hex: 0x1
+i: 164; delta: 1
+i: 164; delta: 1; code: 0xFF
+code_channel: 0xFF
+	formated: code: 0xFF2F; data: end of track
 start
 could not find device 07cf:6803

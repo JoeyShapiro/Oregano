@@ -38,3 +38,7 @@ I FOUND IT
 00 00 54 00 01
 FF 2F 00
 ```
+
+of course, i need to get different values. i will be off
+ah, it was goind where it shouldnt, leading to issue
+this is fine, they have same code anyway
