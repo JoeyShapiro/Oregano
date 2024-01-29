@@ -47,6 +47,7 @@ impl MidiFile {
         let mut messages: Vec<Message> = Vec::new();
 
         let mut tracks = Vec::new();
+        let mut time_per_qn = 0;
         let mut j = 14;
         while j < buffer.len() {
             println!("{} {} {} {}", buffer[j] as char, buffer[j+1] as char, buffer[j+2] as char, buffer[j+3] as char);
@@ -67,7 +68,6 @@ impl MidiFile {
             let mut code_channel = 0;
             let mut i = 0; // want this in a for, but i will barely use the i++
             let mut current_time = 0;
-            let mut time_per_qn = 0;
             while i < data.len() {
                 // let delta_time = data[i];
                 // TODO maybe length is at least 2B
