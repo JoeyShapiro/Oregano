@@ -93,7 +93,8 @@ impl MidiFile {
                 // sleep(delta_time);
     
                 // TODO this does not seem right, must be jumping over something
-                if !running_status || data[i] == 0xFF{
+                if !running_status || (data[i] == 0xFF && data[i+1] == 0x2F) {
+                    println!("hi {} {}", running_status, i+j);
                     code_channel = data[i];
                 }
                 println!("code_channel: 0x{:X?} (0x{:X?})", code_channel, data[i]);
@@ -430,6 +431,8 @@ impl MidiFile {
         messages.sort_by(|a, b| a.cmp(b));
         let time_start = SystemTime::now();
         let mut current_message = 0;
+        println!("{:?}", messages.len());
+        sleep(Duration::from_millis(2000));
         loop {
             if time_start.elapsed().unwrap() >= messages[current_message].play_at {
                 println!("{:}", messages[current_message]);
