@@ -3,17 +3,18 @@ use std::io::Read;
 use std::thread::sleep;
 use std::time::{Duration, SystemTime};
 
-use crate::message::Message;
+use crate::message::{self, Message};
 
 pub struct MidiFile {
     filename: String,
-    // header: MidiHeader,
+    header: MidiHeader,
+    tracks: Vec<MidiTrack>,
 }
 
 struct MidiHeader {
     length: u32,
     format: u16,
-    tracks: u16,
+    n_tracks: u16,
     division: u16,
 }
 
@@ -37,18 +38,21 @@ impl MidiFile {
         let header = MidiHeader {
             length: as_u32_be(buffer[4..8].try_into().expect("length failed")),
             format: as_u16_be(buffer[8..10].try_into().expect("format failed")),
-            tracks: as_u16_be(buffer[10..12].try_into().expect("tracks failed")),
-            division: as_u16_be(buffer[12..14].try_into().expect("division failed"))
+            n_tracks: as_u16_be(buffer[10..12].try_into().expect("tracks failed")),
+            division: as_u16_be(buffer[12..14].try_into().expect("division failed")),
         };
 
-        println!("{:?} {} {}; ticks per quater note: {} ({:x?})", header.length, header.format, header.tracks, header.division, header.division);
+        println!("{:?} {} {}; ticks per quater note: {} ({:x?})", header.length, header.format, header.n_tracks, header.division, header.division);
 
+        let mut messages: Vec<Message> = Vec::new();
+
+        let mut tracks = Vec::new();
         let mut j = 14;
         while j < buffer.len() {
             println!("{} {} {} {}", buffer[j] as char, buffer[j+1] as char, buffer[j+2] as char, buffer[j+3] as char);
             j+=4;
 
-            let track = MidiTrack {
+            let mut track = MidiTrack {
                 length: as_u32_be(buffer[j..j+4].try_into().expect("length failed")),
                 events: Vec::new(),
             };
@@ -92,7 +96,7 @@ impl MidiFile {
                 if !running_status || data[i] == 0xFF{
                     code_channel = data[i];
                 }
-                println!("code_channel: 0x{:X?}", code_channel);
+                println!("code_channel: 0x{:X?} (0x{:X?})", code_channel, data[i]);
     
                 match code_channel&0b1111_0000 {
                     0xF0 => {
@@ -190,6 +194,9 @@ impl MidiFile {
                         println!("code channe: 0x{:X?}; number: 0x{:X?}; velocity: 0x{:X?}", code_channel, number, velocity);
     
                         println!("{}", Message::from_midi(code_channel, number, velocity, Duration::from_millis(current_time)));
+                        let event = MidiEvent{delta_time: delta_time as u32, event: Message::from_midi(code_channel, number, velocity, Duration::from_millis(current_time))};
+                        track.events.push(event);
+                        messages.push(Message::from_midi(code_channel, number, velocity, Duration::from_millis(current_time)));
                         
                         if running_status {
                             i+=2;
@@ -416,10 +423,24 @@ impl MidiFile {
                 }
             }
 
+            tracks.push(track);
             j += i-1;
         }
 
-        Self { filename: "".to_owned() }
+        messages.sort_by(|a, b| a.cmp(b));
+        let time_start = SystemTime::now();
+        let mut current_message = 0;
+        loop {
+            if time_start.elapsed().unwrap() >= messages[current_message].play_at {
+                println!("{:}", messages[current_message]);
+                current_message += 1;
+            }
+            if current_message >= messages.len() {
+                break;
+            }
+        }
+
+        Self { filename: "".to_owned(), header, tracks }
     }
 }
 

@@ -1,3 +1,4 @@
+use std::cmp::Ordering;
 use std::path::Display;
 use std::time::{Duration, SystemTime};
 
@@ -8,7 +9,7 @@ pub struct Message {
     note: u8,
     velocity: u8,
     pressed_at: SystemTime, // TODO maybe remove and replace with below
-    play_at: Duration,
+    pub play_at: Duration,
     
     raw: [ u8; 256 ],
 }
@@ -187,6 +188,10 @@ impl Message {
         };
 
         Message { shrug: 0, status, channel: status_channel&0b00001111, note: note_number, velocity, pressed_at: SystemTime::now(), play_at, raw: [0; 256], }
+    }
+
+    pub fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.play_at.cmp(&other.play_at)
     }
 }
 
