@@ -8,7 +8,8 @@ use crate::message::{self, Message};
 pub struct MidiFile {
     filename: String,
     header: MidiHeader,
-    tracks: Vec<MidiTrack>,
+    pub tracks: Vec<MidiTrack>,
+    pub messages: Vec<Message>,
 }
 
 struct MidiHeader {
@@ -429,21 +430,8 @@ impl MidiFile {
         }
 
         messages.sort_by(|a, b| a.cmp(b));
-        let time_start = SystemTime::now();
-        let mut current_message = 0;
-        println!("{:?}", messages.len());
-        sleep(Duration::from_millis(2000));
-        loop {
-            if time_start.elapsed().unwrap() >= messages[current_message].play_at {
-                println!("{:}", messages[current_message]);
-                current_message += 1;
-            }
-            if current_message >= messages.len() {
-                break;
-            }
-        }
 
-        Self { filename: "".to_owned(), header, tracks }
+        Self { filename: "".to_owned(), header, tracks, messages }
     }
 }
 

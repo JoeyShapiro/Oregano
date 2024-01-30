@@ -1,3 +1,4 @@
+use std::env::current_exe;
 use std::time::{Duration, SystemTime};
 use std::thread;
 use std::sync::mpsc;
@@ -45,7 +46,52 @@ fn main() {
         out = out << 7 | (sevend[i]&0b0111_1111) as u64;
     }
     println!("out: {} ({:X?})", out, out);
-    MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned());
+    let midi = MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned());
+
+    let mut key_presses: Vec<Message> = Vec::new();
+    let mut data = [0; 256];
+    data[0] = 8;
+    data[1] = 128;
+    data[2] = 54;
+    data[3] = 64;
+    key_presses.push(Message::new(data, SystemTime::now() + Duration::new(5,0)));
+    println!("{}", key_presses[0]);
+
+    let threshold = Duration::new(1, 0);
+
+    println!("{:?}", midi.messages.len());
+    thread::sleep(Duration::from_millis(2000));
+    let time_start = SystemTime::now();
+    let mut current_message = 0;
+    let mut note_hit = false;
+    loop {
+        if time_start.elapsed().unwrap() >= midi.messages[current_message].play_at {
+            println!("{}\t{}", current_message, midi.messages[current_message]);
+
+            // if midi.messages[current_message].play_at == key_presses[0].pressed_at.duration_since(time_start).unwrap() {
+            //     println!("hit");
+            // }
+
+            if !note_hit {
+                println!("miss");
+            }
+            note_hit = false;
+
+            current_message += 1;
+        }
+
+
+        if !note_hit && (key_presses[0].pressed_at+threshold).duration_since(time_start).unwrap() >= midi.messages[current_message].play_at &&
+            (key_presses[0].pressed_at-threshold).duration_since(time_start).unwrap() < midi.messages[current_message].play_at {
+            println!("hit");
+            note_hit = true;
+        }
+
+        if current_message >= midi.messages.len() {
+            break;
+        }
+    }
+
     // MidiFile::new("Nintendo_Wii_Theme_for_Bb_Clarinet.mid".to_owned());
     // MidiFile::new("hail-mary/test.mid".to_owned());
     // TOPDO is length encoded faster. how would it work in python and stuff. test it now

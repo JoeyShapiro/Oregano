@@ -4,11 +4,11 @@ use std::time::{Duration, SystemTime};
 
 pub struct Message {
     shrug: u8,
-    status: Status,
+    pub status: Status,
     channel: u8,
-    note: u8,
+    pub note: u8,
     velocity: u8,
-    pressed_at: SystemTime, // TODO maybe remove and replace with below
+    pub pressed_at: SystemTime, // TODO maybe remove and replace with below
     pub play_at: Duration,
     
     raw: [ u8; 256 ],

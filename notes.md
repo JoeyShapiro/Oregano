@@ -46,3 +46,7 @@ this is fine, they have same code anyway
 it was 1 off, but it was ok alone, so it didnt matter
 couold do the symbol, but its fine. better this way
 oh cuase those are even smaller, but this is milli, i see now
+
+i shouold make sure they dont just hold the key. but i can do that in later testing.
+also, they will have to let go of keys and press different keys. it shouldnt be a problem
+at least not now
