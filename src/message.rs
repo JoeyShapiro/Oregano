@@ -1,3 +1,4 @@
+use core::time;
 use std::cmp::Ordering;
 use std::path::Display;
 use std::time::{Duration, SystemTime};
@@ -18,6 +19,15 @@ enum Status {
     NoteOn = 144,
     NoteOff = 128,
     Unknown = 0,
+}
+
+pub enum Hit {
+    Perfect = 1,
+    Great = 2,
+    Good = 3,
+    Bad = 4,
+    Miss = 5,
+    Wrong = 0x80,
 }
 
 impl std::fmt::Display for Status {
@@ -192,6 +202,35 @@ impl Message {
 
     pub fn cmp(&self, other: &Self) -> std::cmp::Ordering {
         self.play_at.cmp(&other.play_at)
+    }
+
+    pub fn hit_accuracy(&self, other: &Self, threshold: Duration, difficulty: u32, time_start: SystemTime) -> Hit {
+        if self.note != other.note {
+            return Hit::Wrong;
+        }
+
+        let hit = if is_in_bounds(self.pressed_at, time_start, other.play_at, threshold*(1*difficulty)) {
+                Hit::Perfect
+        } else if is_in_bounds(self.pressed_at, time_start, other.play_at, threshold*(2*difficulty)) {
+                Hit::Great
+        } else if is_in_bounds(self.pressed_at, time_start, other.play_at, threshold*(3*difficulty)) {
+                Hit::Good
+        } else if is_in_bounds(self.pressed_at, time_start, other.play_at, threshold*(4*difficulty)) {
+                Hit::Bad
+        } else {
+            Hit::Miss
+        };
+
+        hit
+    }
+}
+
+fn is_in_bounds(pressed_at: SystemTime, time_start: SystemTime, played_at: Duration, threshold: Duration) -> bool {
+    if pressed_at >= time_start + played_at.checked_sub(threshold).unwrap_or_default()  &&
+        pressed_at < time_start + played_at.checked_add(threshold).unwrap_or_default() {
+            true
+    } else {
+        false
     }
 }
 

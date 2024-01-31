@@ -50,3 +50,15 @@ oh cuase those are even smaller, but this is milli, i see now
 i shouold make sure they dont just hold the key. but i can do that in later testing.
 also, they will have to let go of keys and press different keys. it shouldnt be a problem
 at least not now
+the hit will sum it up. but i can meassure a few things
+- Note
+- timing
+- velocity
+- octave
+- ... other stuff i dont know ...
+
+might have to make a queue for notes being pressed
+
+looks pretty clean
+
+want queue for control

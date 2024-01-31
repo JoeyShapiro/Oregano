@@ -1,3 +1,4 @@
+use core::time;
 use std::env::current_exe;
 use std::time::{Duration, SystemTime};
 use std::thread;
@@ -48,42 +49,37 @@ fn main() {
     println!("out: {} ({:X?})", out, out);
     let midi = MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned());
 
-    let mut key_presses: Vec<Message> = Vec::new();
+    // let mut key_presses: Vec<Message> = Vec::new();
     let mut data = [0; 256];
-    data[0] = 8;
+    data[0] = 9;
     data[1] = 128;
     data[2] = 54;
     data[3] = 64;
-    key_presses.push(Message::new(data, SystemTime::now() + Duration::new(5,0)));
-    println!("{}", key_presses[0]);
+    // key_presses.push();
+    // println!("{}", key_presses[0]);
+    let mut key_pressed: Option<Message> = Some(Message::new(data, SystemTime::now() + Duration::new(5,0)));
+    println!("{}", key_pressed.unwrap());
 
-    let threshold = Duration::new(1, 0);
+    let threshold = Duration::from_millis(100);
 
-    println!("{:?}", midi.messages.len());
+    println!("notes: {:?}", midi.messages.len());
     thread::sleep(Duration::from_millis(2000));
     let time_start = SystemTime::now();
     let mut current_message = 0;
     let mut note_hit = false;
     loop {
+        key_pressed = Some(Message::new(data, time_start + Duration::new(5,0)));
+
         if time_start.elapsed().unwrap() >= midi.messages[current_message].play_at {
             println!("{}\t{}", current_message, midi.messages[current_message]);
-
-            // if midi.messages[current_message].play_at == key_presses[0].pressed_at.duration_since(time_start).unwrap() {
-            //     println!("hit");
-            // }
-
-            if !note_hit {
-                println!("miss");
-            }
+            
             note_hit = false;
-
             current_message += 1;
         }
 
-
-        if !note_hit && (key_presses[0].pressed_at+threshold).duration_since(time_start).unwrap() >= midi.messages[current_message].play_at &&
-            (key_presses[0].pressed_at-threshold).duration_since(time_start).unwrap() < midi.messages[current_message].play_at {
-            println!("hit");
+        if !note_hit && key_pressed.is_some() {
+            let hit = key_pressed.unwrap().hit_accuracy(&midi.messages[current_message], threshold, 1, time_start);
+            println!("hit: {}", hit as u8);
             note_hit = true;
         }
 
