@@ -1,7 +1,7 @@
 use core::time;
 use std::env::current_exe;
 use std::time::{Duration, SystemTime};
-use std::thread;
+use std::{default, thread};
 use std::sync::mpsc;
 
 mod message;
@@ -49,16 +49,15 @@ fn main() {
     println!("out: {} ({:X?})", out, out);
     let midi = MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned());
 
-    // let mut key_presses: Vec<Message> = Vec::new();
+    let mut key_presses: Vec<Message> = Vec::new();
     let mut data = [0; 256];
     data[0] = 9;
     data[1] = 128;
     data[2] = 54;
     data[3] = 64;
-    // key_presses.push();
-    // println!("{}", key_presses[0]);
-    let mut key_pressed: Option<Message> = Some(Message::new(data, SystemTime::now() + Duration::new(5,0)));
-    println!("{}", key_pressed.unwrap());
+    
+    key_presses.insert(0, Message::new(data, SystemTime::now() + Duration::new(5,0)));
+    let mut key_pressed: Option<Message> = key_presses.pop();
 
     let threshold = Duration::from_millis(100);
 
@@ -68,11 +67,14 @@ fn main() {
     let mut current_message = 0;
     let mut note_hit = false;
     loop {
-        key_pressed = Some(Message::new(data, time_start + Duration::new(5,0)));
+        // ... sure
+        if key_pressed.is_some_and(|k| k.pressed_at > time_start + time_start.elapsed().unwrap()) {
+            key_pressed = key_presses.pop();
+        }
 
         if time_start.elapsed().unwrap() >= midi.messages[current_message].play_at {
             println!("{}\t{}", current_message, midi.messages[current_message]);
-            
+
             note_hit = false;
             current_message += 1;
         }

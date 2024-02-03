@@ -62,3 +62,6 @@ might have to make a queue for notes being pressed
 looks pretty clean
 
 want queue for control
+i wonder how to deal with handing messages, but whatevs, some other time
+
+but how can i deal with stale inputs
