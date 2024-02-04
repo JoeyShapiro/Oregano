@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 rusb = "0.9"
+egui = "0.25.0"
