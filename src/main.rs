@@ -57,9 +57,33 @@ fn main() {
     data[3] = 64;
     
     key_presses.insert(0, Message::new(data, SystemTime::now() + Duration::new(5,0)));
-    let mut key_pressed: Option<Message> = key_presses.pop();
+    let mut key_pressed: Option<Message>;
 
     let threshold = Duration::from_millis(100);
+
+    // Create a channel for communication between threads
+    let (sender, receiver) = mpsc::channel();
+
+    let args: Vec<String> = std::env::args().collect();
+
+    if args.len() < 3 {
+        println!("usage: read_device <base-10/0xbase-16> <base-10/0xbase-16>");
+        return;
+    }
+    let vid = convert_argument(args[1].as_ref());
+    let pid = convert_argument(args[2].as_ref());
+    // Spawn a thread for reading data into the buffer
+    thread::spawn(move || {
+        match Context::new() {
+            Ok(mut context) => match open_device(&mut context, vid, pid) {
+                Some((mut device, device_desc, mut handle)) => {
+                    read_device(&mut device, &device_desc, &mut handle, sender).unwrap()
+                }
+                None => println!("could not find device {:04x}:{:04x}", vid, pid),
+            },
+            Err(e) => panic!("could not initialize libusb: {}", e),
+        }
+    });
 
     println!("notes: {:?}", midi.messages.len());
     thread::sleep(Duration::from_millis(2000));
@@ -67,10 +91,14 @@ fn main() {
     let mut current_message = 0;
     let mut note_hit = false;
     loop {
+        let received_data = receiver.recv();
+        println!("hello there");
+        // key_pressed = Some(received_data);
+        key_pressed = key_presses.pop();
         // ... sure
-        if key_pressed.is_some_and(|k| k.pressed_at > time_start + time_start.elapsed().unwrap()) {
-            key_pressed = key_presses.pop();
-        }
+        // if key_pressed.is_some_and(|k| k.pressed_at > time_start + time_start.elapsed().unwrap()) {
+        //     key_pressed = key_presses.pop();
+        // }
 
         if time_start.elapsed().unwrap() >= midi.messages[current_message].play_at {
             println!("{}\t{}", current_message, midi.messages[current_message]);
@@ -105,25 +133,6 @@ fn main() {
     }
 
     println!("start");
-    let args: Vec<String> = std::env::args().collect();
-
-    if args.len() < 3 {
-        println!("usage: read_device <base-10/0xbase-16> <base-10/0xbase-16>");
-        return;
-    }
-
-    let vid = convert_argument(args[1].as_ref());
-    let pid = convert_argument(args[2].as_ref());
-
-    match Context::new() {
-        Ok(mut context) => match open_device(&mut context, vid, pid) {
-            Some((mut device, device_desc, mut handle)) => {
-                read_device(&mut device, &device_desc, &mut handle).unwrap()
-            }
-            None => println!("could not find device {:04x}:{:04x}", vid, pid),
-        },
-        Err(e) => panic!("could not initialize libusb: {}", e),
-    }
 }
 
 fn open_device<T: UsbContext>(
@@ -157,6 +166,7 @@ fn read_device<T: UsbContext>(
     device: &mut Device<T>,
     device_desc: &DeviceDescriptor,
     handle: &mut DeviceHandle<T>,
+    sender: mpsc::Sender<Message>,
 ) -> Result<()> {
     handle.reset()?;
 
@@ -189,13 +199,14 @@ fn read_device<T: UsbContext>(
         );
     }
 
-    match find_readable_endpoint(device, device_desc, TransferType::Interrupt) {
-        Some(endpoint) => read_endpoint(handle, endpoint, TransferType::Interrupt),
-        None => println!("No readable interrupt endpoint"),
-    }
+    // TODO not sure what this does
+    // match find_readable_endpoint(device, device_desc, TransferType::Interrupt) {
+    //     Some(endpoint) => read_endpoint(handle, endpoint, TransferType::Interrupt, sender),
+    //     None => println!("No readable interrupt endpoint"),
+    // }
 
     match find_readable_endpoint(device, device_desc, TransferType::Bulk) {
-        Some(endpoint) => read_endpoint(handle, endpoint, TransferType::Bulk),
+        Some(endpoint) => read_endpoint(handle, endpoint, TransferType::Bulk, sender),
         None => println!("No readable bulk endpoint"),
     }
 
@@ -238,6 +249,7 @@ fn read_endpoint<T: UsbContext>(
     handle: &mut DeviceHandle<T>,
     endpoint: Endpoint,
     transfer_type: TransferType,
+    sender: mpsc::Sender<Message>,
 ) {
     println!("Reading from endpoint: {:?}", endpoint);
 
@@ -276,6 +288,7 @@ fn read_endpoint<T: UsbContext>(
                             println!(" - read: {:?}", &buf[..len]);
                             let message = Message::new(buf, SystemTime::now());
                             println!("{}", message);
+                            sender.send(message).unwrap();
                         }
                         Err(err) => println!("could not read from endpoint: {}", err),
                     },

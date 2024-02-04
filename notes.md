@@ -65,3 +65,5 @@ want queue for control
 i wonder how to deal with handing messages, but whatevs, some other time
 
 but how can i deal with stale inputs
+
+actually, i could just add them in the proper loop
