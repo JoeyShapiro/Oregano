@@ -67,3 +67,7 @@ i wonder how to deal with handing messages, but whatevs, some other time
 but how can i deal with stale inputs
 
 actually, i could just add them in the proper loop
+
+looks like the recv waits. like classic sockets
+try might be like pop. its close enough
+but how could i put it into an array and try to pop the values. i think this just does that dumb stuff

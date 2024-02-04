@@ -91,10 +91,12 @@ fn main() {
     let mut current_message = 0;
     let mut note_hit = false;
     loop {
-        let received_data = receiver.recv();
-        println!("hello there");
-        // key_pressed = Some(received_data);
-        key_pressed = key_presses.pop();
+        let received_data = receiver.try_recv();
+        if received_data.is_ok() {
+            key_pressed = Some(received_data.unwrap());
+        } else {
+            key_pressed = None;
+        }
         // ... sure
         // if key_pressed.is_some_and(|k| k.pressed_at > time_start + time_start.elapsed().unwrap()) {
         //     key_pressed = key_presses.pop();
@@ -102,6 +104,10 @@ fn main() {
 
         if time_start.elapsed().unwrap() >= midi.messages[current_message].play_at {
             println!("{}\t{}", current_message, midi.messages[current_message]);
+
+            if !note_hit {
+                println!("hit: Miss");
+            }
 
             note_hit = false;
             current_message += 1;
