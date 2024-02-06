@@ -71,3 +71,39 @@ actually, i could just add them in the proper loop
 looks like the recv waits. like classic sockets
 try might be like pop. its close enough
 but how could i put it into an array and try to pop the values. i think this just does that dumb stuff
+
+hav to clean up but maybe wait, want to see gui
+
+24 1 240
+25 1 250
+thread 'main' panicked at src/main.rs:426:69:
+attempt to multiply with overflow
+```rust
+let cur_note = self.midi.messages[self.current_message].note;
+
+            for i in 0..=128 {
+                println!("{} {} {}", i, self.current_message, 0.0 + (i * 10) as f32);
+                let x = 0.0 + (i * 10) as f32;
+                let color = if i == cur_note {
+                    egui::Color32::RED
+                } else if i % 2 == 0 {
+                    egui::Color32::DARK_GRAY
+                } else {
+                    egui::Color32::GRAY 
+                };
+                // let color = if i == cur_note.note { egui::Color32::RED } else { color }; // TODO this line cuases crash
+                let rect = egui::Rect{ min: egui::pos2(x, 200.0), max: egui::pos2(x + 10.0,50.0 + 200.0) };
+                ui.painter()
+                    .rect_filled(rect, 0.0, color);
+            }
+```
+the type of i in now inferred as u8, so not i itself, but trying to get 260 will cause overflow
+
+i htink now its getting hung on something
+it only updates when i move mouse -_-
+
+oh, i dont think the ui can handle multiple notes being hit at the same time. only 1 will end up lighting up.
+so if they are close it wont work right
+
+maybe use a list, but doesnt super matter. need a tile chart
+could just use time to say how big they are

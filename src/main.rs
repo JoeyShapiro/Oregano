@@ -3,8 +3,10 @@ use std::env::current_exe;
 use std::time::{Duration, SystemTime};
 use std::{default, thread};
 use std::sync::mpsc;
+use eframe::egui;
 
 mod message;
+use egui::epaint::RectShape;
 use message::Message;
 mod midi_file;
 use midi_file::MidiFile;
@@ -30,6 +32,23 @@ fn convert_argument(input: &str) -> u16 {
 }
 
 fn main() {
+    // env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
+    let options = eframe::NativeOptions {
+        viewport: egui::ViewportBuilder::default().with_inner_size([1280.0, 720.0]),
+        ..Default::default()
+    };
+    eframe::run_native(
+        "Oregano",
+        options,
+        Box::new(|cc| {
+            // This gives us image support:
+            // egui_extras::install_image_loaders(&cc.egui_ctx);
+
+            Box::<MyApp>::default()
+        }),
+    );
+    panic!("Hello, world!");
+
     // let sevend: [u8; 4] = [0xFF, 0xFF, 0xFF, 0x7F];
     let sevend: [u8; 2] = [ 0xFF, 0x7F ];
     println!("{:X?}", 0b0111_1111+0b0111_1111);
@@ -332,4 +351,88 @@ fn configure_endpoint<T: UsbContext>(
     handle.claim_interface(endpoint.iface)?;
     handle.set_alternate_setting(endpoint.iface, endpoint.setting)?;
     Ok(())
+}
+
+struct MyApp {
+    name: String,
+    age: u32,
+    time_start: SystemTime,
+    midi: MidiFile,
+    threshold: Duration,
+    sender: mpsc::Sender<Message>,
+    receiver: mpsc::Receiver<Message>,
+    current_message: usize,
+    note_hit: bool,
+}
+
+impl Default for MyApp {
+    fn default() -> Self {
+        let (sender, receiver) = mpsc::channel();
+        Self {
+            name: "Arthur".to_owned(),
+            age: 42,
+            time_start: SystemTime::now(),
+            midi: MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned()),
+            threshold: Duration::from_millis(100),
+            sender,
+            receiver,
+            current_message: 0,
+            note_hit: false,
+        }
+    }
+}
+
+impl eframe::App for MyApp {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        // let received_data = self.receiver.try_recv();
+        // let key_pressed = if received_data.is_ok() {
+        //     Some(received_data.unwrap())
+        // } else {
+        //     None
+        // };
+
+        if self.time_start.elapsed().unwrap() >= self.midi.messages[self.current_message].play_at {
+
+            println!("{} {} {:?} {:?}", self.current_message, self.midi.messages[self.current_message].note, self.midi.messages[self.current_message].play_at, self.time_start.elapsed().unwrap());
+
+            if !self.note_hit {
+                println!("hit: Miss");
+            }
+
+            self.note_hit = false;
+            self.current_message += 1;
+        }
+
+        egui::CentralPanel::default().show(ctx, |ui| {
+            ui.heading("My egui Application");
+            ui.horizontal(|ui| {
+                let name_label = ui.label("Your name: ");
+                ui.text_edit_singleline(&mut self.name)
+                    .labelled_by(name_label.id);
+            });
+            ui.add(egui::Slider::new(&mut self.age, 0..=120).text("age"));
+            if ui.button("Increment").clicked() {
+                self.age += 1;
+            }
+            ui.label(format!("Hello '{}', age {}", self.name, self.age));
+
+            // Within each row rect, we paint the columns
+            let cur_note = self.midi.messages[self.current_message].note as usize;
+
+            for i in 0..=128 {
+                let x = 0.0 + (i * 10) as f32;
+                let color = if i == cur_note {
+                    egui::Color32::RED
+                } else if i % 2 == 0 {
+                    egui::Color32::DARK_GRAY
+                } else {
+                    egui::Color32::GRAY 
+                };
+                // let color = if i == cur_note.note { egui::Color32::RED } else { color }; // TODO this line cuases crash
+                let rect = egui::Rect{ min: egui::pos2(x, 200.0), max: egui::pos2(x + 10.0,50.0 + 200.0) };
+                ui.painter()
+                    .rect_filled(rect, 0.0, color);
+            }
+        });
+    }
 }
