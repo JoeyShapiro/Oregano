@@ -107,3 +107,5 @@ so if they are close it wont work right
 
 maybe use a list, but doesnt super matter. need a tile chart
 could just use time to say how big they are
+
+ahhh, i need 129 bits. stupid midi

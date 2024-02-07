@@ -15,7 +15,8 @@ pub struct Message {
     raw: [ u8; 256 ],
 }
 
-enum Status {
+#[derive(Clone, Copy)]
+pub enum Status {
     NoteOn = 144,
     NoteOff = 128,
     Unknown = 0,

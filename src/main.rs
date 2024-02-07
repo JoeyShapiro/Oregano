@@ -1,9 +1,11 @@
 use core::time;
 use std::env::current_exe;
+use std::os::macos::raw::stat;
 use std::time::{Duration, SystemTime};
 use std::{default, thread};
 use std::sync::mpsc;
 use eframe::egui;
+use std::sync::{Arc, Mutex};
 
 mod message;
 use egui::epaint::RectShape;
@@ -37,14 +39,15 @@ fn main() {
         viewport: egui::ViewportBuilder::default().with_inner_size([1280.0, 720.0]),
         ..Default::default()
     };
-    eframe::run_native(
+    let _ = eframe::run_native(
         "Oregano",
         options,
         Box::new(|cc| {
             // This gives us image support:
             // egui_extras::install_image_loaders(&cc.egui_ctx);
+            
 
-            Box::<MyApp>::default()
+            Box::new(MyApp::new(cc)) // Box::<MyApp>::default()
         }),
     );
     panic!("Hello, world!");
@@ -353,7 +356,13 @@ fn configure_endpoint<T: UsbContext>(
     Ok(())
 }
 
-struct MyApp {
+struct State {
+    duration: u64,
+    ctx: Option<egui::Context>,
+    stuff: Stuff,
+}
+
+struct Stuff {
     name: String,
     age: u32,
     time_start: SystemTime,
@@ -363,65 +372,119 @@ struct MyApp {
     receiver: mpsc::Receiver<Message>,
     current_message: usize,
     note_hit: bool,
+    notes_played: u128,
 }
 
-impl Default for MyApp {
-    fn default() -> Self {
+impl State {
+    pub fn new() -> Self {
         let (sender, receiver) = mpsc::channel();
         Self {
-            name: "Arthur".to_owned(),
-            age: 42,
-            time_start: SystemTime::now(),
-            midi: MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned()),
-            threshold: Duration::from_millis(100),
-            sender,
-            receiver,
-            current_message: 0,
-            note_hit: false,
+            duration: 0,
+            ctx: None,
+            stuff: Stuff {
+                name: "Arthur".to_owned(),
+                age: 42,
+                time_start: SystemTime::now(),
+                midi: MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned()),
+                threshold: Duration::from_millis(100),
+                sender,
+                receiver,
+                current_message: 0,
+                note_hit: false,
+                notes_played: 0,
+            },
+        }
+    }
+}
+
+struct MyApp {
+    state: Arc<Mutex<State>>,
+}
+
+impl MyApp {
+    pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
+        let state = Arc::new(Mutex::new(State::new()));
+        state.lock().unwrap().ctx = Some(cc.egui_ctx.clone());
+        let state_clone = state.clone();
+        std::thread::spawn(move || {
+            slow_process(state_clone);
+        });
+        
+        Self {
+            state,
+        }
+    }
+}
+
+fn slow_process(state_clone: Arc<Mutex<State>>) {
+    // let received_data = self.receiver.try_recv();
+    // let key_pressed = if received_data.is_ok() {
+    //     Some(received_data.unwrap())
+    // } else {
+    //     None
+    // };
+
+    loop {
+        let state = &mut state_clone.lock().unwrap();
+        let stuff = &mut state.stuff;
+        if stuff.time_start.elapsed().unwrap() >= stuff.midi.messages[stuff.current_message].play_at {
+            println!("{} {} {:?} {:?}", stuff.current_message, stuff.midi.messages[stuff.current_message].note, stuff.midi.messages[stuff.current_message].play_at, stuff.time_start.elapsed().unwrap());
+    
+            if !stuff.note_hit {
+                println!("hit: Miss");
+            }
+    
+            // only push if on
+            let status = stuff.midi.messages[stuff.current_message].status as u8;
+            if status == 144 {
+                // oh smart. this returns the type. so have to do this style
+                stuff.notes_played |= 2_u128.pow((stuff.midi.messages[stuff.current_message].note-1).into())
+            } else if status == 128 {
+                // for i in 0..stuff.notes_played.len() {
+                //     if stuff.midi.messages[stuff.current_message].note == stuff.notes_played[i] {
+                //         stuff.notes_played&=stuff.midi.messages[stuff.current_message].note as u128;
+                //     }
+                // }
+                stuff.notes_played &=! 2_u128.pow((stuff.midi.messages[stuff.current_message].note-1).into())
+            }
+    
+            stuff.note_hit = false;
+            stuff.current_message += 1;
+        }
+    
+        let ctx =&state.ctx;
+        match ctx {
+            Some(x) => x.request_repaint(),
+            None => panic!("error in Option<>"),
         }
     }
 }
 
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        // let received_data = self.receiver.try_recv();
-        // let key_pressed = if received_data.is_ok() {
-        //     Some(received_data.unwrap())
-        // } else {
-        //     None
-        // };
-
-        if self.time_start.elapsed().unwrap() >= self.midi.messages[self.current_message].play_at {
-
-            println!("{} {} {:?} {:?}", self.current_message, self.midi.messages[self.current_message].note, self.midi.messages[self.current_message].play_at, self.time_start.elapsed().unwrap());
-
-            if !self.note_hit {
-                println!("hit: Miss");
-            }
-
-            self.note_hit = false;
-            self.current_message += 1;
-        }
-
         egui::CentralPanel::default().show(ctx, |ui| {
+            let state = &mut self.state.lock().unwrap();
+
             ui.heading("My egui Application");
             ui.horizontal(|ui| {
                 let name_label = ui.label("Your name: ");
-                ui.text_edit_singleline(&mut self.name)
+                ui.text_edit_singleline(&mut state.stuff.name)
                     .labelled_by(name_label.id);
             });
-            ui.add(egui::Slider::new(&mut self.age, 0..=120).text("age"));
+            ui.add(egui::Slider::new(&mut state.stuff.age, 0..=120).text("age"));
             if ui.button("Increment").clicked() {
-                self.age += 1;
+                state.stuff.age += 1;
             }
-            ui.label(format!("Hello '{}', age {}", self.name, self.age));
+            ui.label(format!("Hello '{}', age {}", state.stuff.name, state.stuff.age));
 
             // Within each row rect, we paint the columns
-            let cur_note = self.midi.messages[self.current_message].note as usize;
-
-            for i in 0..=128 {
+            let cur_note = state.stuff.midi.messages[state.stuff.current_message].note as usize;
+            let cur_notes = state.stuff.notes_played;
+            for i in 0..=127 { // TODO this is wrong, missing the last note, but cant fit it
                 let x = 0.0 + (i * 10) as f32;
-                let color = if i == cur_note {
+                // TODO thats a lot of math
+                let base_i = 2_u128.pow(i);
+                let color = if cur_notes&base_i== base_i {
                     egui::Color32::RED
                 } else if i % 2 == 0 {
                     egui::Color32::DARK_GRAY
