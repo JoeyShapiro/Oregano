@@ -373,11 +373,14 @@ struct Stuff {
     current_message: usize,
     note_hit: bool,
     notes_played: u128,
+    total_notes: usize,
 }
 
 impl State {
     pub fn new() -> Self {
         let (sender, receiver) = mpsc::channel();
+        let midi = MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned());
+        let total_notes = midi.messages.len();
         Self {
             duration: 0,
             ctx: None,
@@ -385,13 +388,14 @@ impl State {
                 name: "Arthur".to_owned(),
                 age: 42,
                 time_start: SystemTime::now(),
-                midi: MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned()),
+                midi,
                 threshold: Duration::from_millis(100),
                 sender,
                 receiver,
                 current_message: 0,
                 note_hit: false,
                 notes_played: 0,
+                total_notes,
             },
         }
     }
@@ -429,7 +433,7 @@ fn slow_process(state_clone: Arc<Mutex<State>>) {
         let stuff = &mut state.stuff;
         if stuff.time_start.elapsed().unwrap() >= stuff.midi.messages[stuff.current_message].play_at {
             println!("{} {} {:?} {:?}", stuff.current_message, stuff.midi.messages[stuff.current_message].note, stuff.midi.messages[stuff.current_message].play_at, stuff.time_start.elapsed().unwrap());
-    
+
             if !stuff.note_hit {
                 println!("hit: Miss");
             }
@@ -464,7 +468,9 @@ impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             let state = &mut self.state.lock().unwrap();
+            let total_notes = state.stuff.total_notes;
 
+            let mut i = 0;
             ui.heading("My egui Application");
             ui.horizontal(|ui| {
                 let name_label = ui.label("Your name: ");
@@ -476,6 +482,7 @@ impl eframe::App for MyApp {
                 state.stuff.age += 1;
             }
             ui.label(format!("Hello '{}', age {}", state.stuff.name, state.stuff.age));
+            ui.add(egui::Slider::new(&mut state.stuff.current_message, 0..=total_notes).text("notes"));
 
             // Within each row rect, we paint the columns
             let cur_note = state.stuff.midi.messages[state.stuff.current_message].note as usize;

@@ -109,3 +109,23 @@ maybe use a list, but doesnt super matter. need a tile chart
 could just use time to say how big they are
 
 ahhh, i need 129 bits. stupid midi
+still have an overflow
+
+could make a byte or 2 for each octave. and do a list, i mean array
+
+can it draw ui as read while time writes next element
+no, it has a lock. it has to stop and wait
+not sure if write is correct, but good enough
+the note is unknown?
+
+why is there a minor miss align. when does it happen
+i think i know why, the slow change
+i found the notes before. what notes is counted as unknown
+
+oh i kinda need the delta time
+it seems like a little extra is in there. i wonder how that works
+i htink both do it, but might be just that one
+does it a few times, but some seem ok. just the big block
+
+they all got realigned
+i think i fixed it

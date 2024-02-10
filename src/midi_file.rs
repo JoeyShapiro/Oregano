@@ -88,15 +88,17 @@ impl MidiFile {
                 println!("\tcurrent_time: {}", current_time);
                 
     
-                println!("i: {}; delta: {}", i, delta_time);
-                println!("i: {}; delta: {}; code: 0x{:X?}", i, delta_time, data[i]);
+                println!("j: {j}; i: {}; delta: {}; code: 0x{:X?}", i, delta_time, data[i]);
                 // how long is a beat
                 // sleep(delta_time);
     
                 // TODO this does not seem right, must be jumping over something
-                if !running_status || (data[i] == 0xFF && data[i+1] == 0x2F) {
+                // (data[i] == 0xFF && data[i+1] == 0x2F)
+                // all notes are under 0x80
+                if !running_status || data[i] > 0x80 {
                     println!("hi {} {}", running_status, i+j);
                     code_channel = data[i];
+                    running_status = false;
                 }
                 println!("code_channel: 0x{:X?} (0x{:X?})", code_channel, data[i]);
     
@@ -195,10 +197,10 @@ impl MidiFile {
                         };
                         println!("code channe: 0x{:X?}; number: 0x{:X?}; velocity: 0x{:X?}", code_channel, number, velocity);
     
-                        println!("{}", Message::from_midi(code_channel, number, velocity, Duration::from_millis(current_time)));
-                        let event = MidiEvent{delta_time: delta_time as u32, event: Message::from_midi(code_channel, number, velocity, Duration::from_millis(current_time))};
+                        println!("{}", Message::from_midi(code_channel, number, velocity, Duration::from_millis(current_time), tracks.len() as u8));
+                        let event = MidiEvent{delta_time: delta_time as u32, event: Message::from_midi(code_channel, number, velocity, Duration::from_millis(current_time), tracks.len() as u8)};
                         track.events.push(event);
-                        messages.push(Message::from_midi(code_channel, number, velocity, Duration::from_millis(current_time)));
+                        messages.push(Message::from_midi(code_channel, number, velocity, Duration::from_millis(current_time), tracks.len() as u8));
                         
                         if running_status {
                             i+=2;

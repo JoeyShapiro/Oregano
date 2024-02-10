@@ -6,6 +6,7 @@ use std::time::{Duration, SystemTime};
 pub struct Message {
     shrug: u8,
     pub status: Status,
+    track: u8,
     channel: u8,
     pub note: u8,
     velocity: u8,
@@ -42,7 +43,7 @@ impl std::fmt::Display for Status {
     }
 }
 
-fn there_has_to_be_a_better_way(note_number: u8) -> String {
+pub fn there_has_to_be_a_better_way(note_number: u8) -> String {
     let note = match note_number {
         128 => "G#9/Ab9",
         127 => "G9",
@@ -173,7 +174,7 @@ fn there_has_to_be_a_better_way(note_number: u8) -> String {
         2 => "D-1",
         1 => "C#-1/Db-1",
         0 => "C-1",
-        _ => "Unknown",
+        _ => "\x1b[1;31mUnknown\x1b[0m",
     };
 
     return note.to_owned();
@@ -188,17 +189,17 @@ impl Message {
             _ => Status::Unknown,
         };
 
-        Message { shrug: data[0], status, channel: data[1]&0b00001111, note: data[2], velocity: data[3], pressed_at, play_at: Duration::new(0, 0), raw: data, }
+        Message { shrug: data[0], status, track: 0, channel: data[1]&0b00001111, note: data[2], velocity: data[3], pressed_at, play_at: Duration::new(0, 0), raw: data, }
     }
 
-    pub fn from_midi(status_channel: u8, note_number: u8, velocity: u8, play_at: Duration) -> Self {
+    pub fn from_midi(status_channel: u8, note_number: u8, velocity: u8, play_at: Duration, track: u8) -> Self {
         let status = match status_channel&0b11110000 {
             144 => Status::NoteOn,
             128 => Status::NoteOff,
             _ => Status::Unknown,
         };
 
-        Message { shrug: 0, status, channel: status_channel&0b00001111, note: note_number, velocity, pressed_at: SystemTime::now(), play_at, raw: [0; 256], }
+        Message { shrug: 0, status, track, channel: status_channel&0b00001111, note: note_number, velocity, pressed_at: SystemTime::now(), play_at, raw: [0; 256], }
     }
 
     pub fn cmp(&self, other: &Self) -> std::cmp::Ordering {
@@ -239,6 +240,6 @@ fn is_in_bounds(pressed_at: SystemTime, time_start: SystemTime, played_at: Durat
 impl std::fmt::Display for Message {
     // Example method: Display the message details
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "status: {0}; channel: {1}; note: {3}; velocity: {2}; pressed_at: {4:?}; play_at: {5:?}", self.status, self.channel, self.velocity, there_has_to_be_a_better_way(self.note), self.pressed_at, self.play_at)
+        write!(f, "status: {0}; track: {6}; channel: {1}; note: {3}; velocity: {2}; pressed_at: {4:?}; play_at: {5:?}", self.status, self.channel, self.velocity, there_has_to_be_a_better_way(self.note), self.pressed_at, self.play_at, self.track)
     }
 }
