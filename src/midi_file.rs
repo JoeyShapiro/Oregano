@@ -36,6 +36,7 @@ impl MidiFile {
         let mut file = std::fs::File::open(filename.clone()).unwrap();
         let mut buffer = Vec::new();
         file.read_to_end(&mut buffer).unwrap();
+        let mut name: String = std::default::Default::default();
 
         let header = MidiHeader {
             length: as_u32_be(buffer[4..8].try_into().expect("length failed")),
@@ -122,6 +123,8 @@ impl MidiFile {
     
                                 print!("length: {}; ", length);
                                 println!("{:?}", std::str::from_utf8(&data[i-length..i]));
+                                name += std::str::from_utf8(&data[i-length..i]).unwrap_or_default();
+                                name += " ";
                             }
                             0x0058 => {
                                 let length: usize = data[i] as usize;
@@ -434,7 +437,8 @@ impl MidiFile {
 
         messages.sort_by(|a, b| a.cmp(b));
 
-        Self { filename: "".to_owned(), name: filename, header, tracks, messages }
+        name = if !name.is_empty() { name } else { filename };
+        Self { filename: "".to_owned(), name, header, tracks, messages }
     }
 }
 
