@@ -7,6 +7,7 @@ use crate::message::{self, Message};
 
 pub struct MidiFile {
     filename: String,
+    pub name: String,
     header: MidiHeader,
     pub tracks: Vec<MidiTrack>,
     pub messages: Vec<Message>,
@@ -32,7 +33,7 @@ struct MidiEvent {
 impl MidiFile {
     pub fn new(filename: String) -> Self {
         // open the file
-        let mut file = std::fs::File::open(filename).unwrap();
+        let mut file = std::fs::File::open(filename.clone()).unwrap();
         let mut buffer = Vec::new();
         file.read_to_end(&mut buffer).unwrap();
 
@@ -433,7 +434,7 @@ impl MidiFile {
 
         messages.sort_by(|a, b| a.cmp(b));
 
-        Self { filename: "".to_owned(), header, tracks, messages }
+        Self { filename: "".to_owned(), name: filename, header, tracks, messages }
     }
 }
 

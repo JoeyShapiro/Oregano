@@ -473,22 +473,14 @@ impl eframe::App for MyApp {
         egui::CentralPanel::default().show(ctx, |ui| {
             let state = &mut self.state.lock().unwrap();
             let total_notes = state.stuff.total_notes;
+            let health = 100;
 
-            let mut i = 0;
-            ui.heading("My egui Application");
-            ui.horizontal(|ui| {
-                let name_label = ui.label("Your name: ");
-                ui.text_edit_singleline(&mut state.stuff.name)
-                    .labelled_by(name_label.id);
-            });
-            ui.add(egui::Slider::new(&mut state.stuff.age, 0..=120).text("age"));
-            if ui.button("Increment").clicked() {
-                state.stuff.age += 1;
-            }
-            ui.label(format!("Hello '{}', age {}", state.stuff.name, state.stuff.age));
+            ui.heading(state.stuff.midi.name.clone());
+            ui.hyperlink("https://github.com/JoeyShapiro/Oregano");
+            ui.label(format!("Health: {health}%"));
 
             let progress = ( state.stuff.current_message as f32 / total_notes as f32 ) * width;
-            let progress_bar = egui::Rect{ min: egui::pos2(0.0, 100.0), max: egui::pos2(progress, 100.0+10.0) };
+            let progress_bar = egui::Rect{ min: egui::pos2(0.0, 0.0), max: egui::pos2(progress, 10.0) };
             ui.painter()
                 .rect_filled(progress_bar, 0.0, egui::Color32::GRAY);
 
@@ -507,7 +499,8 @@ impl eframe::App for MyApp {
                     egui::Color32::GRAY 
                 };
                 // let color = if i == cur_note.note { egui::Color32::RED } else { color }; // TODO this line cuases crash
-                let rect = egui::Rect{ min: egui::pos2(x, height-50.0), max: egui::pos2(x + 10.0, height) };
+                // i think this is wrong, 50 should be bigger
+                let rect = egui::Rect{ min: egui::pos2(x, height-75.0), max: egui::pos2(x + 10.0, height) };
                 ui.painter()
                     .rect_filled(rect, 0.0, color);
             }
