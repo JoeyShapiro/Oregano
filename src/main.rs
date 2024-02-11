@@ -466,6 +466,10 @@ fn slow_process(state_clone: Arc<Mutex<State>>) {
 
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        let main_window = ctx.input(|i| i.viewport().outer_rect).unwrap();
+        let width = main_window.width();
+        let height = main_window.height();
+
         egui::CentralPanel::default().show(ctx, |ui| {
             let state = &mut self.state.lock().unwrap();
             let total_notes = state.stuff.total_notes;
@@ -482,7 +486,11 @@ impl eframe::App for MyApp {
                 state.stuff.age += 1;
             }
             ui.label(format!("Hello '{}', age {}", state.stuff.name, state.stuff.age));
-            ui.add(egui::Slider::new(&mut state.stuff.current_message, 0..=total_notes).text("notes"));
+
+            let progress = ( state.stuff.current_message as f32 / total_notes as f32 ) * width;
+            let progress_bar = egui::Rect{ min: egui::pos2(0.0, 100.0), max: egui::pos2(progress, 100.0+10.0) };
+            ui.painter()
+                .rect_filled(progress_bar, 0.0, egui::Color32::GRAY);
 
             // Within each row rect, we paint the columns
             let cur_note = state.stuff.midi.messages[state.stuff.current_message].note as usize;
@@ -499,7 +507,7 @@ impl eframe::App for MyApp {
                     egui::Color32::GRAY 
                 };
                 // let color = if i == cur_note.note { egui::Color32::RED } else { color }; // TODO this line cuases crash
-                let rect = egui::Rect{ min: egui::pos2(x, 200.0), max: egui::pos2(x + 10.0,50.0 + 200.0) };
+                let rect = egui::Rect{ min: egui::pos2(x, height-50.0), max: egui::pos2(x + 10.0, height) };
                 ui.painter()
                     .rect_filled(rect, 0.0, color);
             }
