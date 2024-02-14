@@ -1,4 +1,5 @@
 use core::time;
+use std::alloc::System;
 use std::env::current_exe;
 use std::os::macos::raw::stat;
 use std::time::{Duration, SystemTime};
@@ -483,6 +484,14 @@ impl eframe::App for MyApp {
             let progress_bar = egui::Rect{ min: egui::pos2(0.0, 0.0), max: egui::pos2(progress, 10.0) };
             ui.painter()
                 .rect_filled(progress_bar, 0.0, egui::Color32::GRAY);
+
+            let play_height = height-75.0;
+            for i in 0..2 {
+                let cur_bar_pos = ((i as f32 / 2.0 * play_height) + (state.stuff.time_start.elapsed().unwrap().as_secs_f32() * 100.0)) % play_height;
+                let bar_bar = egui::Rect{ min: egui::pos2(0.0, cur_bar_pos+0.0), max: egui::pos2(width, cur_bar_pos+2.0) };
+                ui.painter()
+                    .rect_filled(bar_bar, 0.0, egui::Color32::GRAY);
+            }
 
             // Within each row rect, we paint the columns
             let cur_note = state.stuff.midi.messages[state.stuff.current_message].note as usize;

@@ -129,3 +129,8 @@ does it a few times, but some seem ok. just the big block
 
 they all got realigned
 i think i fixed it
+need to get palyed notes, maybe receiver
+and need a chart. hmmm
+
+could compare the whole thing. but wouldtn give fine details
+could store things, but lets do some graphics programming
