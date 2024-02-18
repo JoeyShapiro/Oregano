@@ -485,14 +485,34 @@ impl eframe::App for MyApp {
             ui.painter()
                 .rect_filled(progress_bar, 0.0, egui::Color32::GRAY);
 
+            // tiles
+            let current_time = state.stuff.time_start.elapsed().unwrap().as_secs_f32();
+            let time_offset = 1_f32;
+            let time_end = current_time + time_offset;
+            // cant get current note. what if its 10s in future
+            // TODO this should stop if it gets false
+            let tiles = state.stuff.midi.messages.iter().filter(|message| message.play_at.as_secs_f32() >= current_time && message.play_at.as_secs_f32() <= time_end).collect::<Vec<_>>();
+            for tile in tiles {
+                let y = (1.0 - ((tile.play_at.as_secs_f32()-current_time) / time_offset)) * height;
+                let x = tile.note as f32*10.0;
+                let tile_length = 10.0;
+                let bar_tile = egui::Rect{ min: egui::pos2(x, y), max: egui::pos2(x+10.0, y+tile_length) };
+                ui.painter()
+                    .rect_filled(bar_tile, 0.0, egui::Color32::GRAY);
+            }
+
+            // lines
             let play_height = height-75.0;
+            let speed = 500_000 as f32/1e+3;
+            let offset = current_time * speed;
             for i in 0..2 {
-                let cur_bar_pos = ((i as f32 / 2.0 * play_height) + (state.stuff.time_start.elapsed().unwrap().as_secs_f32() * 100.0)) % play_height;
+                let cur_bar_pos = ((i as f32 / 2.0 * play_height) + offset) % play_height;
                 let bar_bar = egui::Rect{ min: egui::pos2(0.0, cur_bar_pos+0.0), max: egui::pos2(width, cur_bar_pos+2.0) };
                 ui.painter()
                     .rect_filled(bar_bar, 0.0, egui::Color32::GRAY);
             }
 
+            // keys
             // Within each row rect, we paint the columns
             let cur_note = state.stuff.midi.messages[state.stuff.current_message].note as usize;
             let cur_notes = state.stuff.notes_played;

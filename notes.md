@@ -134,3 +134,12 @@ and need a chart. hmmm
 
 could compare the whole thing. but wouldtn give fine details
 could store things, but lets do some graphics programming
+
+yeah i need to go though the actual events. but i can sort them and stuff
+
+i need some way to tell length of note
+the note on and off stuff
+i could convert all messages to notes, and keep record, but hmmm
+i might be able to be clever; knowing that a note cannot be turned ON twice in a row
+
+in 1d i toggle on and off. but now i have to show
