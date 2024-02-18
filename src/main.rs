@@ -10,7 +10,7 @@ use std::sync::{Arc, Mutex};
 
 mod message;
 use egui::epaint::RectShape;
-use message::Message;
+use message::{Message, Status};
 mod midi_file;
 use midi_file::MidiFile;
 
@@ -363,6 +363,17 @@ struct State {
     stuff: Stuff,
 }
 
+struct Tile {
+    note: u8,
+    note_on: f32, // actually this is best; this should deal with changing bpm
+    note_off: f32,
+}
+impl Clone for Tile {
+    fn clone(&self) -> Self {
+        Self { note: self.note, note_on: self.note_on, note_off: self.note_off }
+    }
+}
+
 struct Stuff {
     name: String,
     age: u32,
@@ -375,6 +386,7 @@ struct Stuff {
     note_hit: bool,
     notes_played: u128,
     total_notes: usize,
+    tiles: Vec<Tile>,
 }
 
 impl State {
@@ -382,6 +394,20 @@ impl State {
         let (sender, receiver) = mpsc::channel();
         let midi = MidiFile::new("Bad_Apple_Easy_Version.mid".to_owned());
         let total_notes = midi.messages.len();
+        let mut tiles = Vec::<Tile>::new();
+
+        let mut tile = Tile { note: 0, note_on: 0.0, note_off: 0.0 };
+        for message in &midi.messages {
+            if message.status as u8 == Status::NoteOn as u8 {
+                tile.note = message.note;
+                tile.note_on = message.play_at.as_secs_f32();
+            } else {
+                tile.note_off = message.play_at.as_secs_f32();
+            }
+
+            tiles.push(tile.clone());
+        }
+
         Self {
             duration: 0,
             ctx: None,
@@ -397,6 +423,7 @@ impl State {
                 note_hit: false,
                 notes_played: 0,
                 total_notes,
+                tiles
             },
         }
     }
@@ -491,11 +518,17 @@ impl eframe::App for MyApp {
             let time_end = current_time + time_offset;
             // cant get current note. what if its 10s in future
             // TODO this should stop if it gets false
-            let tiles = state.stuff.midi.messages.iter().filter(|message| message.play_at.as_secs_f32() >= current_time && message.play_at.as_secs_f32() <= time_end).collect::<Vec<_>>();
+            // TODO might be (off >= x >= on)
+            let tiles = state.stuff.tiles.iter().filter(|tile| tile.note_on >= current_time && tile.note_on <= time_end).collect::<Vec<_>>();
             for tile in tiles {
-                let y = (1.0 - ((tile.play_at.as_secs_f32()-current_time) / time_offset)) * height;
+                let y = (1.0 - ((tile.note_on-current_time) / time_offset)) * height;
                 let x = tile.note as f32*10.0;
-                let tile_length = 10.0;
+                let tile_length = (tile.note_off-tile.note_on) * height;
+                // let color = if tile.status as u8 == Status::NoteOn as u8 {
+                //     egui::Color32::GREEN
+                // } else {
+                //     egui::Color32::RED
+                // };
                 let bar_tile = egui::Rect{ min: egui::pos2(x, y), max: egui::pos2(x+10.0, y+tile_length) };
                 ui.painter()
                     .rect_filled(bar_tile, 0.0, egui::Color32::GRAY);

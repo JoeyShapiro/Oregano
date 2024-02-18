@@ -143,3 +143,6 @@ i could convert all messages to notes, and keep record, but hmmm
 i might be able to be clever; knowing that a note cannot be turned ON twice in a row
 
 in 1d i toggle on and off. but now i have to show
+not sure if its reversed or not, the x and y
+it looks odd at the beginning, but then makes sense
+maybe the notes are too close or something
